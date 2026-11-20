@@ -1,0 +1,49 @@
+# Build image → push ke Artifact Registry → deploy ke Cloud Run.
+# Pemakaian:
+#   gcloud builds submit --config cloudbuild.yaml \
+#     --substitutions=_REGION=asia-southeast2,_SERVICE=aruna-digital-web
+substitutions:
+  _REGION: asia-southeast2 # Jakarta
+  _SERVICE: aruna-digital-web
+  _REPO: web
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$BUILD_ID
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:latest
+      - .
+
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args: [push, --all-tags, '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}']
+
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$BUILD_ID
+      - --region=${_REGION}
+      - --platform=managed
+      - --allow-unauthenticated
+      - --port=8080
+      - --cpu=1
+      - --memory=512Mi
+      - --min-instances=0
+      - --max-instances=5
+      - --concurrency=80
+      - --set-env-vars=SITE_URL=https://aruna-digital.com
+      - --set-secrets=MONGODB_URI=aruna-mongodb-uri:latest,JWT_SECRET=aruna-jwt-secret:latest,ADMIN_EMAIL=aruna-admin-email:latest,ADMIN_PASSWORD=aruna-admin-password:latest
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$BUILD_ID
+
+options:
+  logging: CLOUD_LOGGING_ONLY
