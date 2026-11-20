@@ -51,8 +51,10 @@ async function main() {
     const p = m[1].replace(SITE_URL, '') || '/';
     return p.startsWith('/') ? p : `/${p}`;
   });
+  const pageHtml = [];
   for (const p of pages) {
     const html = await (await get(p)).text();
+    pageHtml.push(html);
     // /layanan → layanan.html: GitHub Pages melayaninya tanpa ekstensi & tanpa redirect garis miring
     await write(p === '/' ? 'index.html' : `${p.slice(1)}.html`, html);
   }
@@ -76,10 +78,9 @@ async function main() {
   for (const u of apiUrls) await write(dataFile(u), await (await get(u)).text());
 
   // 5. Cek semua foto Unsplash yang dipakai masih bisa diakses (peringatan di GitHub Actions)
-  const html = await (await get('/')).text();
-  const all = [html, ...(await Promise.all([...apiUrls].map(async (u) => (await get(u)).text())))].join(' ');
-  const extra = (await Promise.all(['/tentang', '/karier'].map(async (p) => (await get(p)).text()))).join(' ');
-  const photos = [...new Set((all + extra).match(/https:\/\/images\.unsplash\.com\/photo-[\w-]+/g) || [])];
+  const notFoundHtml = await (await get('/__halaman-tidak-ada__', { allow404: true })).text();
+  const all = [...pageHtml, notFoundHtml].join(' ');
+  const photos = [...new Set(all.match(/https:\/\/images\.unsplash\.com\/photo-[\w-]+/g) || [])];
   let broken = 0;
   for (const src of photos) {
     const r = await fetch(`${src}?w=16`, { method: 'HEAD' }).catch(() => null);
