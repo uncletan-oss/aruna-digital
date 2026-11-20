@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { LogoMark } from './Logo.jsx';
 import { nav } from '../site.js';
 import { useSite } from '../lib/useSite.js';
-import { postJSON } from '../lib/data.jsx';
+import { postJSON, withBase } from '../lib/data.jsx';
 
 function Newsletter() {
   const [email, setEmail] = useState('');
@@ -17,7 +17,10 @@ function Newsletter() {
       setState({ status: 'done', msg: 'Terdaftar. Artikel berikutnya akan kami kirim ke email Anda.' });
       setEmail('');
     } catch (err) {
-      setState({ status: 'error', msg: err.message });
+      setState({
+        status: 'error',
+        msg: err.static ? 'Pendaftaran newsletter dibuka segera. Sementara ini, ikuti kami di LinkedIn.' : err.message,
+      });
     }
   }
 
@@ -122,7 +125,7 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="/rss.xml">RSS Wawasan</a>
+              <a href={withBase('/rss.xml')}>RSS Wawasan</a>
             </li>
           </ul>
         </div>
@@ -134,7 +137,7 @@ export default function Footer() {
         </p>
         <p>
           <Link to="/kebijakan-privasi">Kebijakan privasi</Link>
-          <a href="/sitemap.xml">Peta situs</a>
+          <a href={withBase('/sitemap.xml')}>Peta situs</a>
         </p>
       </div>
     </footer>

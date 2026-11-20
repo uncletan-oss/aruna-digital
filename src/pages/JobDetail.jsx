@@ -10,7 +10,14 @@ export default function JobDetail({ data: j }) {
   const form = useForm(
     `/api/jobs/${j.slug}/apply`,
     { name: '', email: '', phone: '', link: '', message: '', website: '' },
-    { event: 'job_application' }
+    {
+      event: 'job_application',
+      mailto: (v) => ({
+        to: site.careersEmail,
+        subject: `Lamaran: ${j.title} — ${v.name}`,
+        body: `${v.message}\n\nNama: ${v.name}\nEmail: ${v.email}\nTelepon: ${v.phone}\nCV/portofolio: ${v.link}`,
+      }),
+    }
   );
   const crumbs = [
     { name: 'Karier', path: '/karier' },

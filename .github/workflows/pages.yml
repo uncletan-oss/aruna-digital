@@ -1,0 +1,83 @@
+# Publikasi versi statis ke GitHub Pages (sementara, sebelum Cloud Run).
+# Konten diambil dari seed (server/seed.js). CMS & penyimpanan formulir tidak aktif di Pages;
+# formulir kontak/lamaran dialihkan ke aplikasi email pengunjung.
+#
+# Aktifkan sekali: Settings → Pages → Build and deployment → Source: "GitHub Actions".
+# Domain kustom (opsional): Settings → Secrets and variables → Actions → Variables →
+#   CUSTOM_DOMAIN = aruna-digital.com
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+    env:
+      MONGODB_URI: mongodb://127.0.0.1:27017/aruna_digital
+      CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Tentukan alamat situs
+        run: |
+          if [ -n "$CUSTOM_DOMAIN" ]; then
+            echo "BASE_PATH=/" >> "$GITHUB_ENV"
+            echo "SITE_URL=https://$CUSTOM_DOMAIN" >> "$GITHUB_ENV"
+          else
+            REPO="${GITHUB_REPOSITORY#*/}"
+            OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+            echo "BASE_PATH=/$REPO/" >> "$GITHUB_ENV"
+            echo "SITE_URL=https://$OWNER.github.io/$REPO" >> "$GITHUB_ENV"
+          fi
+
+      - run: npm ci --no-audit --no-fund
+      - run: npm run seed
+      - run: npm run build
+
+      - name: Jalankan server & ekspor halaman statis
+        env:
+          NODE_ENV: production
+          STATIC_EXPORT: '1'
+          JWT_SECRET: static-export-only-not-used-for-login-000000
+          PORT: '8080'
+        run: |
+          node server/index.js &
+          for i in $(seq 1 30); do curl -sf localhost:8080/healthz && break; sleep 1; done
+          node scripts/export-static.mjs --origin http://localhost:8080 --out out
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

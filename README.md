@@ -58,6 +58,23 @@ Mode production lokal: `npm run build && JWT_SECRET=... npm start`.
 
 `npm run seed:reset` menghapus lalu mengisi ulang layanan, portofolio, artikel, dan lowongan.
 
+## Sementara: GitHub Pages (statis)
+
+Workflow `.github/workflows/pages.yml` berjalan setiap push ke `main`. Workflow menyalakan MongoDB sementara di GitHub Actions, mengisi konten seed, merender semua halaman (SSR) ke HTML statis, lalu mempublikasikannya.
+
+- Alamat: `https://uncletan-oss.github.io/aruna-digital/`
+- Tetap lengkap: semua halaman, transisi, SEO (meta, JSON-LD, sitemap.xml, rss.xml).
+- Tidak aktif di Pages: CMS `/admin` dan penyimpanan formulir. Formulir kontak & lamaran membuka aplikasi email pengunjung dengan pesan yang sudah terisi.
+- Konten diambil dari `server/seed.js`; ubah file itu lalu push untuk memperbarui situs.
+- Domain kustom: tambahkan variable repo `CUSTOM_DOMAIN=aruna-digital.com` (Settings → Secrets and variables → Actions → Variables), arahkan DNS ke GitHub Pages, lalu jalankan ulang workflow.
+
+Uji ekspor statis secara lokal:
+```bash
+BASE_PATH=/aruna-digital/ SITE_URL=https://uncletan-oss.github.io/aruna-digital npm run build
+BASE_PATH=/aruna-digital/ SITE_URL=https://uncletan-oss.github.io/aruna-digital NODE_ENV=production STATIC_EXPORT=1 JWT_SECRET=dev-dev-dev-dev-dev-dev-dev-dev-dev node server/index.js &
+SITE_URL=https://uncletan-oss.github.io/aruna-digital node scripts/export-static.mjs --out out
+```
+
 ## Deploy ke Cloud Run
 
 1. **MongoDB Atlas**: buat cluster (region `asia-southeast2`/Jakarta bila tersedia), user database, dan izinkan akses jaringan (untuk awal `0.0.0.0/0`; lebih aman pakai VPC peering + Serverless VPC Access atau Private Endpoint).

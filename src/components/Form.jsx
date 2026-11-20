@@ -42,7 +42,7 @@ export function Field({ id, label, hint, error, as = 'input', options, ...props 
  * Formulir generik: kirim JSON ke `endpoint`, tampilkan error per-field,
  * dan ganti dengan pesan konfirmasi setelah terkirim.
  */
-export function useForm(endpoint, initial, { event } = {}) {
+export function useForm(endpoint, initial, { event, mailto } = {}) {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
@@ -64,6 +64,13 @@ export function useForm(endpoint, initial, { event } = {}) {
       setStatus('sent');
       if (event) trackEvent(event);
     } catch (err) {
+      // Mode statis (GitHub Pages): tidak ada server — lanjutkan lewat aplikasi email.
+      if (err.static && mailto) {
+        const { to, subject, body } = mailto(values);
+        window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        setStatus('mailto');
+        return;
+      }
       setErrors(err.fields || {});
       setMessage(err.message);
       setStatus('error');
@@ -76,7 +83,15 @@ export function useForm(endpoint, initial, { event } = {}) {
 export function FormShell({ form, sentTitle, sentText, children, submitLabel, sendingLabel }) {
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {form.status === 'sent' ? (
+      {form.status === 'mailto' ? (
+        <motion.div key="mailto" className="form-sent" role="status" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+          <h2 className="form-sent__title">Lanjutkan di aplikasi email</h2>
+          <p>Kami sudah menyiapkan email berisi pesan Anda. Periksa aplikasi email yang terbuka, lalu tekan Kirim.</p>
+          <button type="button" className="btn btn--ghost" onClick={form.reset}>
+            Kembali ke formulir
+          </button>
+        </motion.div>
+      ) : form.status === 'sent' ? (
         <motion.div
           key="sent"
           className="form-sent"

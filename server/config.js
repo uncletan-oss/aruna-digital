@@ -16,5 +16,8 @@ export const config = {
   adminEmail: process.env.ADMIN_EMAIL || '',
   adminPassword: process.env.ADMIN_PASSWORD || '',
   googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION || '',
+  // Untuk ekspor statis (GitHub Pages) di sub-path, mis. /aruna-digital/
+  basePath: (process.env.BASE_PATH || '/').replace(/\/$/, ''),
+  staticExport: process.env.STATIC_EXPORT === '1',
   gaMeasurementId: process.env.GA_MEASUREMENT_ID || '',
 };

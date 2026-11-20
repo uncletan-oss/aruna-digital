@@ -12,7 +12,14 @@ export default function Contact({ data = [] }) {
   const form = useForm(
     '/api/contact',
     { name: '', email: '', company: '', phone: '', topic: '', budget: '', message: '', website: '' },
-    { event: 'generate_lead' }
+    {
+      event: 'generate_lead',
+      mailto: (v) => ({
+        to: site.email,
+        subject: `Diskusi proyek${v.company ? ` — ${v.company}` : ''}`,
+        body: `${v.message}\n\nNama: ${v.name}\nPerusahaan: ${v.company}\nTelepon: ${v.phone}\nLayanan: ${v.topic}\nAnggaran: ${v.budget}`,
+      }),
+    }
   );
   const topics = [...data.map((s) => s.title), 'Lainnya'];
   const tel = site.phone.replace(/\s/g, '');

@@ -122,10 +122,13 @@ async function createServer() {
         })
       );
 
-      const { html, helmet: h } = render(url, initialData, {
+      const renderOpts = {
         siteUrl: config.siteUrl,
         gaId: config.gaMeasurementId,
-      });
+        basename: config.basePath,
+        static: config.staticExport,
+      };
+      const { html, helmet: h } = render(url, initialData, renderOpts);
 
       const head = [
         h.title.toString(),
@@ -147,7 +150,7 @@ async function createServer() {
           '<!--app-data-->',
           `<script id="__DATA__" type="application/json">${serialize({
             data: initialData,
-            opts: { siteUrl: config.siteUrl, gaId: config.gaMeasurementId },
+            opts: renderOpts,
           })}</script>`
         );
 

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { runtime } from '../lib/data.jsx';
 
 // Panel admin hanya dirender di browser dan dimuat terpisah (code-splitting),
 // sehingga tidak menambah ukuran bundle situs publik.
@@ -14,7 +15,9 @@ export default function AdminGate() {
         <title>CMS — Aruna Digital</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      {mounted ? (
+      {runtime.static ? (
+        <div className="adm-boot">CMS aktif setelah situs di-deploy ke Cloud Run dengan MongoDB.</div>
+      ) : mounted ? (
         <Suspense fallback={<div className="adm-boot">Memuat CMS…</div>}>
           <AdminApp />
         </Suspense>
