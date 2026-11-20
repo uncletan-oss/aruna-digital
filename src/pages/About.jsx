@@ -40,11 +40,8 @@ export default function About() {
       <PageHead
         title="Kami tim engineer dan desainer yang lebih suka merilis daripada presentasi."
         crumbs={[{ name: 'Tentang', path: '/tentang' }]}
+        image={photos.team}
       />
-
-      <div className="wrap wide-photo">
-        <Photo src={photos.team.src} alt={photos.team.alt} credit={photos.team.credit} ratio={21 / 9} priority />
-      </div>
 
       <section className="wrap about-intro">
         <p className="lead">

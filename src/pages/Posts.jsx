@@ -2,6 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import Seo from '../components/Seo.jsx';
 import { PageHead, PostRow } from '../components/ui.jsx';
 import { Empty } from '../components/States.jsx';
+import { photos } from '../site.js';
 
 export default function Posts({ data }) {
   const { items = [], page = 1, pages = 1, tags = [] } = data || {};
@@ -27,6 +28,7 @@ export default function Posts({ data }) {
         title="Wawasan"
         lead="Catatan dari proyek nyata: apa yang berhasil, apa yang tidak, dan apa yang akan kami lakukan berbeda."
         crumbs={[{ name: 'Wawasan', path: '/wawasan' }]}
+        image={page === 1 && !tag ? photos.insights : undefined}
       >
         {tags.length > 0 && (
           <nav className="filters" aria-label="Topik">

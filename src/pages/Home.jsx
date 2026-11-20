@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Seo, { organizationLd } from '../components/Seo.jsx';
-import HeroArena from '../components/HeroArena.jsx';
 import ServiceList from '../components/ServiceList.jsx';
 import Photo from '../components/Photo.jsx';
 import { photos } from '../site.js';
@@ -65,6 +64,15 @@ export default function Home({ data }) {
       />
 
       <section className="hero">
+        <Photo
+          src={photos.hero.src}
+          alt={photos.hero.alt}
+          credit={photos.hero.credit}
+          sizes="100vw"
+          priority
+          seed="hero"
+          className="hero__photo"
+        />
         <div className="wrap hero__inner">
           <h1 className="hero__title">
             {heroLines.map((line, i) => (
@@ -73,19 +81,16 @@ export default function Home({ data }) {
               </span>
             ))}
           </h1>
-          <div className="hero__aside">
-            <p className="hero__lead">{site.heroLead || DEFAULT_LEAD}</p>
-            <div className="row-actions">
-              <Link to="/kontak" className="btn btn--lg">
-                Diskusikan proyek
-              </Link>
-              <Link to="/portofolio" className="link-quiet">
-                Lihat studi kasus
-              </Link>
-            </div>
+          <p className="hero__lead">{site.heroLead || DEFAULT_LEAD}</p>
+          <div className="row-actions hero__actions">
+            <Link to="/kontak" className="btn btn--dawn btn--lg">
+              Diskusikan proyek
+            </Link>
+            <Link to="/portofolio" className="btn btn--light btn--lg">
+              Lihat studi kasus
+            </Link>
           </div>
         </div>
-        <HeroArena />
       </section>
 
       <section className="section" aria-labelledby="h-layanan">

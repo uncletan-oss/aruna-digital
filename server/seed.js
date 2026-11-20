@@ -326,6 +326,9 @@ const jobs = [
   {
     title: 'Senior Frontend Engineer (React)',
     slug: 'senior-frontend-engineer-react',
+    image: 'https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa',
+    imageAlt: 'Monitor dan laptop menampilkan kode program',
+    imageCredit: 'Safar Safarov',
     department: 'Engineering',
     location: 'Jakarta, Indonesia',
     employmentType: 'FULL_TIME',
@@ -344,6 +347,9 @@ const jobs = [
   {
     title: 'Backend Engineer (Node.js)',
     slug: 'backend-engineer-nodejs',
+    image: 'https://images.unsplash.com/photo-1628258334105-2a0b3d6efee1',
+    imageAlt: 'Laptop di atas meja kayu gelap',
+    imageCredit: 'AltumCode',
     department: 'Engineering',
     location: 'Jakarta, Indonesia',
     employmentType: 'FULL_TIME',
@@ -362,6 +368,9 @@ const jobs = [
   {
     title: 'Product Designer',
     slug: 'product-designer',
+    image: 'https://images.unsplash.com/photo-1531547977107-a5f0f32d6d87',
+    imageAlt: 'Dua perempuan bekerja di ruang kerja',
+    imageCredit: 'Mimi Thian',
     department: 'Desain',
     location: 'Jakarta, Indonesia',
     employmentType: 'FULL_TIME',

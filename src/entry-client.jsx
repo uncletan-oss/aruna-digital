@@ -5,7 +5,6 @@ import App from './App.jsx';
 import { DataProvider, setRuntime } from './lib/data.jsx';
 import { initAnalytics } from './lib/analytics.js';
 import '@fontsource-variable/plus-jakarta-sans/wght.css';
-import '@fontsource/instrument-serif/400.css';
 import './styles/global.css';
 
 const el = document.getElementById('__DATA__');

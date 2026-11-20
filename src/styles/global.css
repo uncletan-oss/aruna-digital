@@ -400,131 +400,106 @@ ol {
   background: linear-gradient(var(--ink-2), var(--ink));
 }
 
-/* ---------- Hero (elemen khas: arena + fajar) ---------- */
+/* ---------- Hero: foto penuh + teks ---------- */
 .hero {
   position: relative;
-  padding-top: clamp(2.5rem, 7vw, 5.5rem);
+  margin-top: calc(-1 * var(--header-h));
+  min-height: clamp(36rem, 92vh, 54rem);
+  display: grid;
+  align-items: end;
+  color: #fff;
+  isolation: isolate;
   overflow: hidden;
 }
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.hero__photo img {
+  animation: heroZoom 2.4s var(--ease) both;
+}
+.hero__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(14, 18, 52, 0.88) 0%, rgba(14, 18, 52, 0.55) 45%, rgba(14, 18, 52, 0.1) 100%),
+    linear-gradient(0deg, rgba(14, 18, 52, 0.6) 0%, rgba(14, 18, 52, 0) 40%);
+}
+.hero__photo .photo__credit {
+  z-index: 1;
+}
+@keyframes heroZoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
 .hero__inner {
+  padding-top: calc(var(--header-h) + 4rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2.5rem;
-  position: relative;
-  z-index: 2;
+  gap: 1.75rem;
+  justify-items: start;
 }
 .hero__title {
-  font-size: var(--fs-hero);
-  font-weight: 650;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  text-wrap: initial;
+  max-width: 15ch;
 }
 .hero__line {
   display: block;
-  animation: lineUp 1s var(--ease) both;
-  animation-delay: calc(var(--d) * 0.11s + 0.1s);
+  animation: lineUp 0.9s var(--ease) both;
+  animation-delay: calc(var(--d) * 0.09s + 0.15s);
 }
 @keyframes lineUp {
   from {
     opacity: 0;
-    transform: translateY(0.45em);
-    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.5em);
   }
   to {
     opacity: 1;
     transform: none;
-    clip-path: inset(0 0 -0.2em 0);
   }
 }
-.hero__aside {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  animation: fadeIn 0.9s var(--ease) 0.55s both;
-}
 .hero__lead {
-  font-family: var(--sans);
-  font-size: var(--fs-md);
-  line-height: 1.5;
-  max-width: 34ch;
-  color: var(--ink-2);
+  max-width: 46ch;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+  animation: fadeIn 0.8s var(--ease) 0.45s both;
+}
+.hero__actions {
+  animation: fadeIn 0.8s var(--ease) 0.6s both;
 }
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
 }
-@media (min-width: 1000px) {
-  .hero__inner {
-    grid-template-columns: minmax(0, 1fr) 20rem;
-    align-items: end;
-  }
+.btn--light {
+  --bg: transparent;
+  --fg: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.btn--light:hover {
+  --bg: #fff;
+  --fg: var(--ink);
+  border-color: #fff;
 }
 
-.arena {
-  position: relative;
-  margin-top: clamp(-1rem, -2vw, 0rem);
-  margin-inline: auto;
-  max-width: 90rem;
-  pointer-events: none;
+/* Header transparan di atas hero beranda */
+.header--over:not(.header--scrolled):not(.header--open) {
+  color: #fff;
 }
-.arena__svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
+.header--over:not(.header--scrolled):not(.header--open) .header__link:hover {
+  color: var(--dawn);
 }
-.arena__ring {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 1.4;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw 1.5s var(--ease-io) forwards;
-  animation-delay: calc(var(--i) * 0.1s + 0.25s);
-}
-.arena__ring:first-child {
-  stroke-width: 2;
-}
-.arena__seats {
-  fill: none;
-  stroke: var(--ink);
-  stroke-opacity: 0.35;
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1.5 7;
-  opacity: 0;
-  animation: fadeOnly 1s ease forwards;
-  animation-delay: calc(var(--i) * 0.1s + 1s);
-}
-.arena__floor {
-  fill: var(--ink);
-  opacity: 0;
-  animation: fadeOnly 0.6s ease 0.4s forwards;
-}
-.arena__sun {
-  transform-box: fill-box;
-  animation: sunrise 1.8s var(--ease) 1.05s both;
-}
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes fadeOnly {
-  to {
-    opacity: 1;
-  }
-}
-@keyframes sunrise {
-  from {
-    transform: translateY(220px);
-  }
-  to {
-    transform: translateY(0);
-  }
+.header--over:not(.header--scrolled):not(.header--open) .header__cta {
+  --bg: #fff;
+  --fg: var(--ink);
 }
 
 /* ---------- Seksi ---------- */
@@ -1699,13 +1674,10 @@ button.filters__btn.is-active {
     animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
   }
-  .arena__ring {
-    stroke-dashoffset: 0;
-  }
 }
 
 /* =========================================================
-   Tipografi: Instrument Serif untuk judul, Plus Jakarta Sans untuk teks
+   Tipografi korporat: Plus Jakarta Sans untuk seluruh situs
    ========================================================= */
 h1,
 h2,
@@ -1719,7 +1691,6 @@ h2,
 .tile__title,
 .ctaband__title,
 .footer__mail,
-.footer__headline,
 .next-case__title,
 .results__value,
 .facts dd,
@@ -1729,14 +1700,16 @@ h2,
 .mobile-menu__link,
 .form-sent__title,
 .principles__t {
-  font-family: var(--display);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-style: normal;
 }
 .hero__title {
-  font-size: clamp(3.1rem, 1.2rem + 7vw, 7.75rem);
-  line-height: 0.95;
-  letter-spacing: -0.025em;
+  font-size: clamp(2.6rem, 1.3rem + 4.6vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 750;
 }
 .h2,
 .pagehead__title,
@@ -1744,35 +1717,61 @@ h2,
 .article__title,
 .ctaband__title,
 .next-case__title {
-  font-size: clamp(2.6rem, 1.5rem + 3.8vw, 4.5rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
+  line-height: 1.1;
 }
 .svc-list__title,
 .svc-index__title,
 .tile--large .tile__title {
-  font-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 .tile__title {
-  font-size: clamp(1.55rem, 1.2rem + 1vw, 2rem);
-  line-height: 1.1;
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 .results__value {
-  font-size: clamp(3rem, 2rem + 3vw, 4.75rem);
+  font-size: clamp(2.4rem, 1.8rem + 2vw, 3.5rem);
+  font-weight: 800;
 }
 .steps__n {
-  font-size: 4.25rem;
-  font-style: italic;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--dawn);
+  display: grid;
+  place-items: center;
 }
 .notfound__code {
-  -webkit-text-stroke: 1.5px var(--ink);
+  -webkit-text-stroke: 0;
+  color: #fff;
+  font-weight: 800;
+}
+.footer__headline {
+  font-family: var(--sans);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 .footer__mail {
-  font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.25rem);
+  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
 }
 .principles__t,
 .form-sent__title {
-  font-size: clamp(1.7rem, 1.3rem + 1vw, 2.1rem);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.timeline__y,
+.facts dd {
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+}
+.mobile-menu__link {
+  font-size: clamp(2rem, 8vw, 2.75rem);
 }
 h3,
 h4,
@@ -1783,7 +1782,7 @@ h4,
 .prose h2,
 .prose h3 {
   font-family: var(--sans);
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 .lead,
@@ -1795,12 +1794,18 @@ h4,
   font-weight: 400;
   letter-spacing: -0.005em;
 }
+.lead,
+.pagehead__lead {
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--slate);
+}
 .prose {
-  font-size: 1.125rem;
-  line-height: 1.75;
+  font-size: 1.0625rem;
+  line-height: 1.8;
 }
 .logo__word {
-  font-weight: 750;
+  font-weight: 800;
   letter-spacing: -0.035em;
 }
 .logo__thin {
@@ -1936,6 +1941,211 @@ h4,
   font-size: var(--fs-md);
   color: rgba(255, 255, 255, 0.85);
 }
-.footer__headline {
-  line-height: 1.15;
+
+/* =========================================================
+   Pembaruan tata letak korporat
+   ========================================================= */
+.curtain {
+  display: none;
+}
+.route-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--dawn);
+  transform-origin: 0 50%;
+  z-index: 80;
+  pointer-events: none;
+}
+.state--loading {
+  min-height: 70vh;
+  place-content: start stretch;
+}
+.state__bar {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--dawn), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: barSlide 1.1s ease-in-out infinite;
+}
+@keyframes barSlide {
+  from {
+    background-position: -50% 0;
+  }
+  to {
+    background-position: 150% 0;
+  }
+}
+
+/* Kepala halaman */
+.pagehead__grid {
+  display: grid;
+  gap: 1.25rem 4rem;
+}
+@media (min-width: 960px) {
+  .pagehead__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: end;
+  }
+  .pagehead__grid .pagehead__lead {
+    margin-top: 0;
+  }
+}
+.pagehead__title {
+  max-width: 20ch;
+}
+.pagehead__photo {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.pagehead__photo .photo {
+  border-radius: 1rem;
+}
+.pagehead__photo .photo img {
+  animation: photoIn 1.2s var(--ease) both;
+}
+@keyframes photoIn {
+  from {
+    transform: scale(1.05);
+  }
+}
+
+/* Indeks layanan dengan foto */
+.svc-index__item {
+  align-items: start;
+}
+.svc-index__media {
+  display: block;
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+.svc-index__media .photo img {
+  transition: transform 0.7s var(--ease);
+}
+.svc-index__item:hover .svc-index__media .photo img {
+  transform: scale(1.04);
+}
+@media (min-width: 900px) {
+  .svc-index__item {
+    grid-template-columns: 18rem minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem 2.5rem;
+  }
+  .svc-index__media {
+    grid-row: span 2;
+  }
+  .svc-index__item .taglist {
+    grid-column: 2 / span 2;
+  }
+}
+
+/* Daftar artikel dengan thumbnail */
+.postrow__link {
+  display: grid;
+  gap: 1.25rem 2.5rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+.postrow__thumb {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.postrow__thumb .photo img {
+  transition: transform 0.7s var(--ease);
+}
+.postrow__link:hover .postrow__thumb .photo img {
+  transform: scale(1.04);
+}
+.postrow__meta {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+@media (min-width: 860px) {
+  .postrow__link {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+/* Pita ajakan dengan foto */
+.ctaband {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+}
+.ctaband__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.ctaband__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 26, 70, 0.94) 0%, rgba(33, 57, 180, 0.82) 60%, rgba(33, 57, 180, 0.6) 100%);
+}
+
+/* 404 dengan foto */
+.notfound {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 75vh;
+  display: grid;
+  align-items: center;
+  color: #fff;
+  padding: 0;
+}
+.notfound__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.notfound__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 18, 52, 0.72);
+}
+.notfound__inner {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 5rem;
+}
+.notfound .lead {
+  color: rgba(255, 255, 255, 0.8);
+}
+.notfound__code {
+  font-size: clamp(5rem, 16vw, 11rem);
+  line-height: 0.9;
+}
+
+/* Bagian lain */
+.tile__media,
+.case-hero__art {
+  background: var(--ink);
+}
+.case-hero__art {
+  border-radius: 0;
+}
+.photo--side {
+  max-width: 100%;
+}
+.photo.hero__photo,
+.photo.studio__photo,
+.photo.ctaband__photo,
+.photo.notfound__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.svc-index {
+  border-top: 0;
+}
+.svc-index__item:first-child {
+  border-top: 1.5px solid var(--ink);
 }

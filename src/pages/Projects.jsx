@@ -3,6 +3,7 @@ import { LayoutGroup, motion, AnimatePresence } from 'framer-motion';
 import Seo from '../components/Seo.jsx';
 import { PageHead, ProjectTile, CtaBand } from '../components/ui.jsx';
 import { Empty } from '../components/States.jsx';
+import { photos } from '../site.js';
 
 export default function Projects({ data }) {
   const { items = [], industries = [] } = data || {};
@@ -28,6 +29,7 @@ export default function Projects({ data }) {
         title="Portofolio"
         lead="Setiap proyek dimulai dari masalah bisnis yang nyata dan diukur dari hasilnya setelah rilis."
         crumbs={[{ name: 'Portofolio', path: '/portofolio' }]}
+        image={photos.portfolio}
       >
         {industries.length > 1 && (
           <LayoutGroup>

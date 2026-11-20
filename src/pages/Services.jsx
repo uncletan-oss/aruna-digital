@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import Seo from '../components/Seo.jsx';
 import { PageHead, CtaBand } from '../components/ui.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
-import { site } from '../site.js';
+import { site, photos } from '../site.js';
+import Photo from '../components/Photo.jsx';
 
 export default function Services({ data = [] }) {
   const { siteUrl } = useSiteOpts();
@@ -29,10 +30,14 @@ export default function Services({ data = [] }) {
         title="Layanan"
         lead={`Dari ide sampai produk yang berjalan di produksi. Pilih satu disiplin, atau minta ${site.name} menangani semuanya.`}
         crumbs={[{ name: 'Layanan', path: '/layanan' }]}
+        image={photos.services}
       />
       <section className="wrap svc-index">
         {data.map((s) => (
           <article key={s.slug} className="svc-index__item">
+            <Link to={`/layanan/${s.slug}`} className="svc-index__media" tabIndex={-1} aria-hidden="true">
+              <Photo src={s.image} alt="" ratio={4 / 3} sizes="(min-width: 900px) 22rem, 100vw" seed={s.slug} />
+            </Link>
             <h2 className="svc-index__title">
               <Link to={`/layanan/${s.slug}`}>{s.title}</Link>
             </h2>

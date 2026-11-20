@@ -1,6 +1,7 @@
 import Seo from '../components/Seo.jsx';
 import { PageHead } from '../components/ui.jsx';
 import { useSite } from '../lib/useSite.js';
+import { photos } from '../site.js';
 
 export default function Privacy() {
   const site = useSite();
@@ -11,7 +12,12 @@ export default function Privacy() {
         description={`Bagaimana ${site.name} mengumpulkan, menggunakan, dan melindungi data pribadi pengunjung situs.`}
         breadcrumbs={[{ name: 'Kebijakan privasi', path: '/kebijakan-privasi' }]}
       />
-      <PageHead title="Kebijakan privasi" crumbs={[{ name: 'Kebijakan privasi', path: '/kebijakan-privasi' }]} />
+      <PageHead
+        title="Kebijakan privasi"
+        lead="Data apa yang kami kumpulkan, untuk apa, dan bagaimana kami melindunginya."
+        crumbs={[{ name: 'Kebijakan privasi', path: '/kebijakan-privasi' }]}
+        image={photos.privacy}
+      />
       <div className="wrap article__body">
         <div className="prose">
           <p>

@@ -38,6 +38,46 @@ export const site = {
  * boleh dipakai komersial tanpa izin). Ganti URL di sini bila perlu.
  */
 export const photos = {
+  hero: {
+    src: 'https://images.unsplash.com/photo-1710956394316-0e9fc5312aab',
+    alt: 'Matahari di atas gedung-gedung tinggi Jakarta',
+    credit: 'David Kristianto',
+  },
+  services: {
+    src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2',
+    alt: 'Ruang rapat kantor modern dengan meja dan kursi',
+    credit: 'Nastuh Abootalebi',
+  },
+  portfolio: {
+    src: 'https://images.unsplash.com/photo-1696832204235-5676c7ee9105',
+    alt: 'Gedung-gedung tinggi di tepi perairan',
+    credit: 'Ache Dipro',
+  },
+  insights: {
+    src: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3',
+    alt: 'Layar laptop menampilkan kode berwarna',
+    credit: 'Mohammad Rahmani',
+  },
+  contact: {
+    src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72',
+    alt: 'Lorong kantor dengan pintu kaca',
+    credit: 'Nastuh Abootalebi',
+  },
+  privacy: {
+    src: 'https://images.unsplash.com/photo-1548092372-0d1bd40894a3',
+    alt: 'Layar laptop menyala dari dekat',
+    credit: 'Philipp Katzenberger',
+  },
+  partnership: {
+    src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216',
+    alt: 'Dua orang berjabat tangan',
+    credit: 'Cytonn Photography',
+  },
+  notFound: {
+    src: 'https://images.unsplash.com/photo-1666884257245-7bfcf6e4fc1e',
+    alt: 'Kaki langit kota pada malam hari',
+    credit: 'Fahrul Razi',
+  },
   studio: {
     src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c',
     alt: 'Tim bekerja bersama di depan laptop',

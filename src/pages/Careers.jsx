@@ -3,7 +3,6 @@ import Seo from '../components/Seo.jsx';
 import { PageHead } from '../components/ui.jsx';
 import { Empty } from '../components/States.jsx';
 import { useSite } from '../lib/useSite.js';
-import Photo from '../components/Photo.jsx';
 import { photos } from '../site.js';
 
 export const TYPE_LABEL = { FULL_TIME: 'Penuh waktu', PART_TIME: 'Paruh waktu', CONTRACTOR: 'Kontrak', INTERN: 'Magang' };
@@ -28,11 +27,8 @@ export default function Careers({ data = [] }) {
         title="Karier"
         lead="Kami mencari orang yang senang merilis, peduli pada detail, dan nyaman bertanya ‘kenapa’."
         crumbs={[{ name: 'Karier', path: '/karier' }]}
+        image={photos.careers}
       />
-
-      <div className="wrap wide-photo">
-        <Photo src={photos.careers.src} alt={photos.careers.alt} credit={photos.careers.credit} ratio={21 / 9} priority />
-      </div>
 
       <section className="wrap split">
         <div className="split__head">

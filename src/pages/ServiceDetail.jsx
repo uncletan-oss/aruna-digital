@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo.jsx';
 import { PageHead, Prose, ProjectTile, CtaBand } from '../components/ui.jsx';
-import Photo, { imageUrl } from '../components/Photo.jsx';
+import { imageUrl } from '../components/Photo.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
-import { site } from '../site.js';
+import { site, photos } from '../site.js';
 
 export default function ServiceDetail({ data }) {
   const { siteUrl } = useSiteOpts();
@@ -33,12 +33,12 @@ export default function ServiceDetail({ data }) {
           },
         ]}
       />
-      <PageHead title={s.title} lead={s.summary} crumbs={crumbs} />
-      {s.image && (
-        <div className="wrap wide-photo">
-          <Photo src={s.image} alt={s.imageAlt || ''} ratio={21 / 9} credit={s.imageCredit} seed={s.slug} priority />
-        </div>
-      )}
+      <PageHead
+        title={s.title}
+        lead={s.summary}
+        crumbs={crumbs}
+        image={{ src: s.image || photos.services.src, alt: s.imageAlt, credit: s.image ? s.imageCredit : photos.services.credit }}
+      />
 
       <div className="wrap detail">
         <div className="detail__main">

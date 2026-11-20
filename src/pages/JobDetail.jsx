@@ -2,7 +2,8 @@ import Seo from '../components/Seo.jsx';
 import { PageHead, Prose } from '../components/ui.jsx';
 import { Field, FormShell, useForm } from '../components/Form.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
-import { site } from '../site.js';
+import { site, photos } from '../site.js';
+import { imageUrl } from '../components/Photo.jsx';
 import { TYPE_LABEL } from './Careers.jsx';
 
 export default function JobDetail({ data: j }) {
@@ -31,6 +32,7 @@ export default function JobDetail({ data: j }) {
       <Seo
         title={j.seoTitle || `Lowongan ${j.title}`}
         description={j.seoDescription || j.summary}
+        image={j.image ? imageUrl(j.image, 1200, 630) : undefined}
         breadcrumbs={crumbs}
         jsonLd={[
           {
@@ -58,7 +60,12 @@ export default function JobDetail({ data: j }) {
           },
         ]}
       />
-      <PageHead title={j.title} lead={j.summary} crumbs={crumbs}>
+      <PageHead
+        title={j.title}
+        lead={j.summary}
+        crumbs={crumbs}
+        image={{ src: j.image || photos.careers.src, alt: j.imageAlt || photos.careers.alt, credit: j.image ? j.imageCredit : photos.careers.credit }}
+      >
         <p className="pagehead__meta">
           {[j.department, j.location, TYPE_LABEL[j.employmentType], j.remote ? 'Bisa remote' : null].filter(Boolean).join(', ')}
         </p>

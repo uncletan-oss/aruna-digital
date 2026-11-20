@@ -3,6 +3,7 @@ import { PageHead } from '../components/ui.jsx';
 import { Field, FormShell, useForm } from '../components/Form.jsx';
 import { useSite } from '../lib/useSite.js';
 import { useSiteOpts } from '../lib/data.jsx';
+import { photos } from '../site.js';
 
 const budgets = ['Di bawah Rp250 juta', 'Rp250–750 juta', 'Rp750 juta–2 miliar', 'Di atas Rp2 miliar', 'Belum tahu'];
 
@@ -53,6 +54,7 @@ export default function Contact({ data = [] }) {
         title="Ceritakan apa yang ingin Anda bangun."
         lead="Isi formulir di bawah, atau hubungi langsung. Balasan pertama dari kami dalam satu hari kerja."
         crumbs={[{ name: 'Kontak', path: '/kontak' }]}
+        image={photos.contact}
       />
 
       <div className="wrap contact">

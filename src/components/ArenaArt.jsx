@@ -1,8 +1,8 @@
 /**
- * Ilustrasi generatif untuk studi kasus — deterministik dari slug,
- * diwarnai dengan aksen proyek. Tidak butuh upload gambar.
+ * Grafis pengganti bila foto tidak tersedia: gradasi warna aksen dengan
+ * busur cakrawala tipis dan matahari terbit — deterministik dari `seed`.
  */
-function hash(str = '') {
+function rng(str = '') {
   let h = 2166136261;
   for (let i = 0; i < str.length; i++) {
     h ^= str.charCodeAt(i);
@@ -17,15 +17,10 @@ function hash(str = '') {
 }
 
 export default function ArenaArt({ seed, accent = '#2E4BD8', className = '', title }) {
-  const rnd = hash(seed);
-  const cx = 160 + rnd() * 280;
-  const cy = 210 + rnd() * 80;
-  const tilt = 0.22 + rnd() * 0.2;
-  const rings = 5 + Math.floor(rnd() * 4);
-  const sunX = 80 + rnd() * 440;
-  const sunY = 60 + rnd() * 70;
-  const sunR = 22 + rnd() * 26;
-
+  const r = rng(seed);
+  const id = `g${Math.floor(r() * 1e6)}`;
+  const cx = 360 + r() * 180;
+  const sunR = 34 + r() * 18;
   return (
     <svg
       className={`art ${className}`}
@@ -35,32 +30,33 @@ export default function ArenaArt({ seed, accent = '#2E4BD8', className = '', tit
       aria-label={title}
       aria-hidden={title ? undefined : 'true'}
     >
-      <rect width="600" height="400" fill={accent} />
-      <rect width="600" height="400" fill="url(#artShade)" />
       <defs>
-        <linearGradient id="artShade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.28" />
+        <linearGradient id={`${id}b`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor={accent} />
+          <stop offset="1" stopColor="#141A46" />
         </linearGradient>
+        <radialGradient id={`${id}s`} cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stopColor="#F2A541" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#F2A541" stopOpacity="0" />
+        </radialGradient>
       </defs>
-      <circle cx={sunX} cy={sunY} r={sunR} fill="var(--dawn)" />
-      {Array.from({ length: rings }, (_, i) => {
-        const rx = 40 + i * (340 / rings) * 1.25;
-        return (
-          <ellipse
-            key={i}
-            cx={cx}
-            cy={cy + i * 6}
-            rx={rx}
-            ry={rx * tilt}
-            fill="none"
-            stroke="#fff"
-            strokeOpacity={0.85 - i * (0.6 / rings)}
-            strokeWidth={i === 0 ? 2.5 : 1.5}
-            strokeDasharray={i % 2 ? '2 7' : undefined}
-          />
-        );
-      })}
+      <rect width="600" height="400" fill={`url(#${id}b)`} />
+      <circle cx={cx} cy="300" r={sunR * 3.2} fill={`url(#${id}s)`} />
+      <circle cx={cx} cy="300" r={sunR} fill="#F2A541" />
+      <rect y="300" width="600" height="100" fill="#141A46" fillOpacity="0.35" />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <ellipse
+          key={i}
+          cx={cx}
+          cy="300"
+          rx={90 + i * 90}
+          ry={(90 + i * 90) * 0.18}
+          fill="none"
+          stroke="#fff"
+          strokeOpacity={0.32 - i * 0.05}
+          strokeWidth="1"
+        />
+      ))}
     </svg>
   );
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Photo from './Photo.jsx';
+import { photos } from '../site.js';
 
 export const fmtDate = (d) =>
   new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
@@ -28,13 +29,28 @@ export function Breadcrumbs({ items }) {
 }
 
 /** Kepala halaman dalam: judul besar rata kiri + paragraf pembuka. */
-export function PageHead({ title, lead, crumbs, children }) {
+export function PageHead({ title, lead, crumbs, image, children }) {
   return (
     <header className="pagehead wrap">
       {crumbs && <Breadcrumbs items={crumbs} />}
-      <h1 className="pagehead__title">{title}</h1>
-      {lead && <p className="pagehead__lead">{lead}</p>}
+      <div className="pagehead__grid">
+        <h1 className="pagehead__title">{title}</h1>
+        {lead && <p className="pagehead__lead">{lead}</p>}
+      </div>
       {children}
+      {image?.src && (
+        <div className="pagehead__photo">
+          <Photo
+            src={image.src}
+            alt={image.alt || ''}
+            credit={image.credit}
+            ratio={21 / 9}
+            sizes="(min-width: 1280px) 1250px, 100vw"
+            seed={image.src}
+            priority
+          />
+        </div>
+      )}
     </header>
   );
 }
@@ -80,14 +96,17 @@ export function PostRow({ post }) {
   return (
     <article className="postrow">
       <Link to={`/wawasan/${post.slug}`} className="postrow__link">
-        <time className="postrow__date" dateTime={new Date(post.publishedAt).toISOString()}>
-          {fmtDate(post.publishedAt)}
-        </time>
-        <div>
+        <div className="postrow__thumb">
+          <Photo src={post.image} alt="" ratio={3 / 2} sizes="(min-width: 860px) 15rem, 100vw" seed={post.slug} />
+        </div>
+        <div className="postrow__body">
+          <p className="postrow__meta">
+            <time dateTime={new Date(post.publishedAt).toISOString()}>{fmtDate(post.publishedAt)}</time>
+            <span>{post.readingMinutes} menit baca</span>
+          </p>
           <h3 className="postrow__title">{post.title}</h3>
           <p className="postrow__excerpt">{post.excerpt}</p>
         </div>
-        <p className="postrow__meta">{post.readingMinutes} menit baca</p>
       </Link>
     </article>
   );
@@ -96,6 +115,7 @@ export function PostRow({ post }) {
 export function CtaBand({ title = 'Mari bicarakan apa yang ingin Anda bangun.', text, to = '/kontak', label = 'Jadwalkan diskusi' }) {
   return (
     <section className="ctaband">
+      <Photo src={photos.partnership.src} alt="" sizes="100vw" seed="cta" className="ctaband__photo" />
       <div className="wrap ctaband__inner">
         <h2 className="ctaband__title">{title}</h2>
         <div>

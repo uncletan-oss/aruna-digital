@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 export function PageLoading() {
   return (
-    <div className="state" role="status" aria-live="polite">
-      <span className="state__ring" aria-hidden="true" />
+    <div className="state state--loading" role="status" aria-live="polite">
+      <span className="state__bar" aria-hidden="true" />
       <span className="sr-only">Memuat halaman…</span>
     </div>
   );

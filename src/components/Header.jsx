@@ -28,7 +28,11 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className={`header${scrolled ? ' header--scrolled' : ''}${open ? ' header--open' : ''}`}>
+    <header
+      className={`header${scrolled ? ' header--scrolled' : ''}${open ? ' header--open' : ''}${
+        location.pathname === '/' ? ' header--over' : ''
+      }`}
+    >
       {site.announcement && !scrolled && (
         <p className="announce">
           <span className="wrap">{site.announcement}</span>
