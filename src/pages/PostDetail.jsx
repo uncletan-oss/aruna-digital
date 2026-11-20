@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import Seo from '../components/Seo.jsx';
 import { Breadcrumbs, Prose, PostRow, fmtDate, CtaBand } from '../components/ui.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
+import Photo, { imageUrl } from '../components/Photo.jsx';
 import { site } from '../site.js';
 
 export default function PostDetail({ data }) {
@@ -22,6 +23,7 @@ export default function PostDetail({ data }) {
         title={p.seoTitle || p.title}
         description={p.seoDescription || p.excerpt}
         type="article"
+        image={p.image ? imageUrl(p.image, 1200, 630) : undefined}
         published={p.publishedAt}
         modified={p.updatedAt}
         breadcrumbs={crumbs}
@@ -40,7 +42,7 @@ export default function PostDetail({ data }) {
               logo: { '@type': 'ImageObject', url: `${siteUrl}/icon-512.png` },
             },
             mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-            image: `${siteUrl}/og-default.png`,
+            image: p.image ? imageUrl(p.image, 1200, 630) : `${siteUrl}/og-default.png`,
             keywords: (p.tags || []).join(', '),
             inLanguage: 'id-ID',
             wordCount: (p.body || '').split(/\s+/).length,
@@ -59,6 +61,11 @@ export default function PostDetail({ data }) {
             <span>{p.readingMinutes} menit baca</span>
           </p>
         </header>
+        {p.image && (
+          <div className="wrap wide-photo">
+            <Photo src={p.image} alt={p.imageAlt || ''} ratio={2} credit={p.imageCredit} seed={p.slug} priority />
+          </div>
+        )}
         <div className="wrap article__body">
           <p className="lead">{p.excerpt}</p>
           <Prose html={p.bodyHtml} />

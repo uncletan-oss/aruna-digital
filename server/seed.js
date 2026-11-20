@@ -14,6 +14,9 @@ const services = [
   {
     title: 'Pengembangan Aplikasi Web',
     slug: 'pengembangan-aplikasi-web',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c',
+    imageAlt: 'Layar laptop menampilkan kode program',
+    imageCredit: 'Arnold Francisca',
     summary: 'Portal pelanggan, dashboard internal, dan platform transaksi yang cepat, aman, dan mudah dirawat.',
     deliverables: ['Arsitektur & estimasi teknis', 'Frontend React / Next.js', 'Backend Node.js & API', 'Integrasi sistem inti', 'Dokumentasi & serah terima'],
     body: `Kami membangun aplikasi web yang dipakai setiap hari — bukan sekadar prototipe.
@@ -33,6 +36,9 @@ Setelah itu tim kecil lintas fungsi (product, desain, engineering, QA) bekerja d
   {
     title: 'Aplikasi Mobile',
     slug: 'aplikasi-mobile',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c',
+    imageAlt: 'Ponsel pintar di atas meja',
+    imageCredit: 'William Hook',
     summary: 'Aplikasi iOS dan Android dengan satu basis kode Flutter atau React Native, siap rilis ke store.',
     deliverables: ['Aplikasi Flutter / React Native', 'Desain antarmuka mobile', 'Push notification & deep link', 'Rilis App Store & Play Store', 'Monitoring crash & performa'],
     body: `Satu basis kode, dua platform, tanpa kompromi pada pengalaman pengguna.
@@ -47,6 +53,9 @@ Kami memantau crash, performa, dan ulasan pengguna, lalu merencanakan iterasi be
   {
     title: 'Cloud & DevOps',
     slug: 'cloud-devops',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31',
+    imageAlt: 'Kabel jaringan di rak server',
+    imageCredit: 'Taylor Vick',
     summary: 'Migrasi ke cloud, pipeline CI/CD, dan infrastruktur sebagai kode supaya rilis jadi rutinitas, bukan risiko.',
     deliverables: ['Assessment & rencana migrasi', 'Infrastruktur sebagai kode (Terraform)', 'CI/CD otomatis', 'Observability & alerting', 'Optimasi biaya cloud'],
     body: `Kami membantu tim Anda merilis lebih sering dengan lebih sedikit kejutan.
@@ -61,6 +70,9 @@ Kami memantau crash, performa, dan ulasan pengguna, lalu merencanakan iterasi be
   {
     title: 'Data & AI',
     slug: 'data-ai',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
+    imageAlt: 'Grafik analitik kinerja di layar laptop',
+    imageCredit: 'Luke Chesser',
     summary: 'Pipeline data, dashboard analitik, dan fitur AI yang menjawab pertanyaan bisnis nyata.',
     deliverables: ['Data warehouse & pipeline ETL', 'Dashboard analitik', 'Model prediksi & rekomendasi', 'Integrasi LLM yang aman', 'Tata kelola data'],
     body: `Data yang rapi lebih berharga daripada model yang canggih. Kami mulai dari sana.
@@ -75,6 +87,9 @@ Asisten internal, pencarian dokumen, dan otomasi layanan pelanggan berbasis LLM 
   {
     title: 'Desain UI/UX',
     slug: 'desain-ui-ux',
+    image: 'https://images.unsplash.com/photo-1576153192396-180ecef2a715',
+    imageAlt: 'Desainer membuat sketsa wireframe di kertas',
+    imageCredit: 'Amélie Mourichon',
     summary: 'Riset pengguna, desain antarmuka, dan design system yang membuat produk mudah dipahami sejak klik pertama.',
     deliverables: ['Riset & wawancara pengguna', 'Arsitektur informasi', 'Prototipe interaktif', 'Design system & komponen', 'Uji usabilitas'],
     body: `Desain yang baik terasa jelas, bukan sekadar indah.
@@ -86,6 +101,9 @@ Wawancara pengguna → peta perjalanan → wireframe → prototipe → uji usabi
   {
     title: 'Keamanan & Kepatuhan TI',
     slug: 'keamanan-kepatuhan-ti',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b',
+    imageAlt: 'Panel lampu LED biru kehijauan',
+    imageCredit: 'Adi Goldstein',
     summary: 'Penilaian risiko, hardening aplikasi, dan kesiapan audit untuk industri yang diatur ketat seperti perbankan.',
     deliverables: ['Penilaian risiko TI', 'Secure code review', 'Hardening & pengujian keamanan', 'Kesiapan audit (POJK, ISO 27001)', 'Portal GRC internal'],
     body: `Untuk bank, fintech, dan perusahaan teregulasi, keamanan adalah fitur utama.
@@ -104,6 +122,9 @@ const projects = [
   {
     title: 'Pelacakan armada real-time untuk 1.200 truk',
     slug: 'sentra-logistik-pelacakan-armada',
+    image: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242',
+    imageAlt: 'Truk barang melaju di jalan raya',
+    imageCredit: 'Caleb Ruiter',
     client: 'Sentra Logistik Nusantara',
     industry: 'Logistik',
     year: 2025,
@@ -128,6 +149,9 @@ Flutter, Node.js, PostgreSQL + PostGIS, Google Cloud Run, Pub/Sub.`,
   {
     title: 'Portal GRC untuk tim risiko dan kepatuhan',
     slug: 'koperasi-mekar-jaya-portal-grc',
+    image: 'https://images.unsplash.com/photo-1707157284454-553ef0a4ed0d',
+    imageAlt: 'Meja kerja dengan ponsel dan grafik keuangan',
+    imageCredit: 'Jakub Żerdzicki',
     client: 'Koperasi Mekar Jaya',
     industry: 'Jasa Keuangan',
     year: 2025,
@@ -151,6 +175,9 @@ Flutter, Node.js, PostgreSQL + PostGIS, Google Cloud Run, Pub/Sub.`,
   {
     title: 'Telekonsultasi untuk jaringan 40 klinik',
     slug: 'rumah-sehat-kita-telekonsultasi',
+    image: 'https://images.unsplash.com/photo-1758691463203-cce9d415b2b5',
+    imageAlt: 'Dua dokter melihat tablet bersama',
+    imageCredit: 'Vitaly Gariev',
     client: 'Rumah Sehat Kita',
     industry: 'Kesehatan',
     year: 2024,
@@ -169,6 +196,9 @@ Flutter, Node.js, PostgreSQL + PostGIS, Google Cloud Run, Pub/Sub.`,
   {
     title: 'Marketplace hasil tani langsung dari petani',
     slug: 'pasar-tani-marketplace',
+    image: 'https://images.unsplash.com/photo-1616140799962-4d548b0aaad5',
+    imageAlt: 'Cabai merah dan hijau di pasar',
+    imageCredit: 'Falaq Lazuardi',
     client: 'Pasar Tani',
     industry: 'Agrikultur',
     year: 2024,
@@ -186,6 +216,9 @@ Flutter, Node.js, PostgreSQL + PostGIS, Google Cloud Run, Pub/Sub.`,
   {
     title: 'Platform belajar adaptif untuk sekolah menengah',
     slug: 'arunika-edu-belajar-adaptif',
+    image: 'https://images.unsplash.com/photo-1758270705290-62b6294dd044',
+    imageAlt: 'Siswa berkumpul di sekitar laptop',
+    imageCredit: 'Vitaly Gariev',
     client: 'Arunika Edu',
     industry: 'Pendidikan',
     year: 2023,
@@ -207,6 +240,9 @@ const posts = [
   {
     title: 'Kapan sebaiknya memilih Cloud Run dibanding Kubernetes?',
     slug: 'cloud-run-atau-kubernetes',
+    image: 'https://images.unsplash.com/photo-1584169417032-d34e8d805e8b',
+    imageAlt: 'Lorong ruang server dengan rak peralatan',
+    imageCredit: 'İsmail Enes Ayhan',
     excerpt: 'Cloud Run cukup untuk sebagian besar aplikasi web. Berikut tanda-tanda kapan Anda benar-benar butuh GKE.',
     tags: ['cloud', 'devops'],
     author: 'Raka Pratama',
@@ -229,6 +265,9 @@ Mulailah dengan yang paling sederhana. Migrasi dari Cloud Run ke GKE nanti relat
   {
     title: 'Lima pertanyaan sebelum menambahkan AI ke produk Anda',
     slug: 'lima-pertanyaan-sebelum-menambahkan-ai',
+    image: 'https://images.unsplash.com/photo-1757466762489-52fea38071ad',
+    imageAlt: 'Gelombang partikel biru bercahaya',
+    imageCredit: 'jonakoh',
     excerpt: 'Fitur AI yang berhasil dimulai dari masalah yang jelas, data yang siap, dan cara mengukur kualitas jawaban.',
     tags: ['ai', 'produk'],
     author: 'Dewi Lestari',
@@ -246,6 +285,9 @@ Jika salah satu belum terjawab, mulailah dari sana.`,
   {
     title: 'Design system kecil yang benar-benar dipakai',
     slug: 'design-system-kecil-yang-dipakai',
+    image: 'https://images.unsplash.com/photo-1618788372246-79faff0c3742',
+    imageAlt: 'Tangan memegang iPad di samping tanaman',
+    imageCredit: 'Faizur Rehman',
     excerpt: 'Anda tidak perlu 200 komponen. Mulai dari tipografi, warna, jarak, dan lima komponen yang paling sering muncul.',
     tags: ['desain', 'produk'],
     author: 'Nadia Putri',
@@ -261,6 +303,9 @@ Tombol, input, kartu, modal, dan tabel. Bangun di kode, bukan hanya di Figma, da
   {
     title: 'Menyiapkan aplikasi untuk audit keamanan bank',
     slug: 'menyiapkan-aplikasi-untuk-audit-keamanan-bank',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7',
+    imageAlt: 'Gembok merah di atas papan ketik',
+    imageCredit: 'FlyD',
     excerpt: 'Checklist praktis untuk tim engineering yang membangun aplikasi untuk lembaga keuangan di Indonesia.',
     tags: ['keamanan', 'kepatuhan'],
     author: 'Raka Pratama',

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
+import { imageUrl } from '../components/Photo.jsx';
 
 const toDateInput = (v) => (v ? new Date(v).toISOString().slice(0, 10) : '');
 
@@ -141,6 +142,18 @@ export function FieldInput({ f, value, onChange, error }) {
           <input id={id} type="color" value={value || '#2E4BD8'} onChange={(e) => onChange(e.target.value.toUpperCase())} />
           <code>{value}</code>
         </span>
+      );
+      break;
+    case 'image':
+      input = (
+        <>
+          <input id={id} type="url" placeholder="https://images.unsplash.com/photo-…" value={value || ''} onChange={(e) => onChange(e.target.value)} />
+          {value && (
+            <div className="adm-imgprev">
+              <img src={imageUrl(value, 640, 360)} alt="Pratinjau foto" />
+            </div>
+          )}
+        </>
       );
       break;
     case 'results':

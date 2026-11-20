@@ -1,7 +1,7 @@
 /* =========================================================
    Aruna Digital — sistem desain
    Warna: Porcelain, Ink (indigo), Cobalt, Dawn (fajar), Slate
-   Tipografi: Bricolage Grotesque (tampilan & UI), Newsreader (teks panjang)
+   Tipografi: Instrument Serif (judul), Plus Jakarta Sans (teks & UI)
    ========================================================= */
 :root {
   --porcelain: #f1f2f6;
@@ -17,8 +17,8 @@
   --danger: #b42318;
   --ok: #0f7a4a;
 
-  --display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --serif: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --display: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
   --fs-sm: 0.875rem;
   --fs-base: 1.0625rem;
@@ -52,10 +52,9 @@ body {
   margin: 0;
   background: var(--porcelain);
   color: var(--ink);
-  font-family: var(--display);
+  font-family: var(--sans);
   font-size: var(--fs-base);
   line-height: 1.55;
-  font-variation-settings: 'wdth' 100;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -134,7 +133,7 @@ ol {
   color: var(--slate);
 }
 .lead {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--fs-lg);
   line-height: 1.45;
   max-width: 38ch;
@@ -142,7 +141,6 @@ ol {
 }
 .h2 {
   font-size: var(--fs-2xl);
-  font-variation-settings: 'wdth' 85;
   font-weight: 650;
   letter-spacing: -0.035em;
 }
@@ -271,7 +269,6 @@ ol {
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.03em;
-  font-variation-settings: 'wdth' 80;
 }
 .logo__thin {
   font-weight: 350;
@@ -357,7 +354,6 @@ ol {
   font-size: clamp(2.2rem, 10vw, 3.4rem);
   font-weight: 600;
   letter-spacing: -0.035em;
-  font-variation-settings: 'wdth' 80;
   text-decoration: none;
   line-height: 1.15;
 }
@@ -422,7 +418,6 @@ ol {
   font-weight: 650;
   line-height: 0.98;
   letter-spacing: -0.045em;
-  font-variation-settings: 'wdth' 78, 'opsz' 96;
   text-wrap: initial;
 }
 .hero__line {
@@ -449,7 +444,7 @@ ol {
   animation: fadeIn 0.9s var(--ease) 0.55s both;
 }
 .hero__lead {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--fs-md);
   line-height: 1.5;
   max-width: 34ch;
@@ -590,7 +585,6 @@ ol {
   font-size: var(--fs-xl);
   font-weight: 600;
   letter-spacing: -0.03em;
-  font-variation-settings: 'wdth' 82;
   line-height: 1.1;
   transition: color 0.3s var(--ease), transform 0.4s var(--ease);
 }
@@ -695,13 +689,12 @@ ol {
 }
 .tile--large .tile__title {
   font-size: var(--fs-xl);
-  font-variation-settings: 'wdth' 85;
 }
 .tile__link:hover .tile__title {
   color: var(--cobalt);
 }
 .tile__summary {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.125rem;
   color: var(--ink-2);
 }
@@ -739,7 +732,6 @@ ol {
   font-weight: 300;
   line-height: 1;
   color: var(--dawn);
-  font-variation-settings: 'wdth' 75;
 }
 .steps__t {
   font-size: var(--fs-md);
@@ -807,7 +799,6 @@ ol {
 }
 .ctaband__title {
   font-size: var(--fs-2xl);
-  font-variation-settings: 'wdth' 82;
   letter-spacing: -0.035em;
 }
 .ctaband__text {
@@ -854,7 +845,6 @@ ol {
   font-size: var(--fs-2xl);
   font-weight: 650;
   letter-spacing: -0.035em;
-  font-variation-settings: 'wdth' 80;
   border-bottom: 3px solid var(--dawn);
   line-height: 1.15;
 }
@@ -951,14 +941,13 @@ ol {
 }
 .pagehead__title {
   font-size: var(--fs-2xl);
-  font-variation-settings: 'wdth' 80;
   font-weight: 650;
   letter-spacing: -0.04em;
   max-width: 18ch;
 }
 .pagehead__lead {
   margin-top: 1.5rem;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--fs-lg);
   line-height: 1.45;
   max-width: 44ch;
@@ -1015,7 +1004,6 @@ ol {
 }
 .svc-index__title {
   font-size: var(--fs-xl);
-  font-variation-settings: 'wdth' 82;
 }
 .svc-index__title a {
   text-decoration: none;
@@ -1024,7 +1012,7 @@ ol {
   color: var(--cobalt);
 }
 .svc-index__sum {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--fs-md);
   color: var(--ink-2);
 }
@@ -1126,7 +1114,7 @@ ol {
 
 /* Prosa (markdown) */
 .prose {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.1875rem;
   line-height: 1.7;
   max-width: 66ch;
@@ -1245,7 +1233,6 @@ button.filters__btn.is-active {
 }
 .case-hero__title {
   font-size: var(--fs-2xl);
-  font-variation-settings: 'wdth' 80;
   letter-spacing: -0.04em;
   max-width: 20ch;
 }
@@ -1287,7 +1274,6 @@ button.filters__btn.is-active {
   font-size: var(--fs-2xl);
   font-weight: 650;
   letter-spacing: -0.04em;
-  font-variation-settings: 'wdth' 78;
   color: var(--accent, var(--cobalt));
   line-height: 1;
 }
@@ -1306,7 +1292,7 @@ button.filters__btn.is-active {
   max-width: none;
 }
 .case-body__block p {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.1875rem;
   line-height: 1.7;
   margin-top: 0.75rem;
@@ -1345,7 +1331,6 @@ button.filters__btn.is-active {
   font-size: var(--fs-2xl);
   font-weight: 650;
   letter-spacing: -0.04em;
-  font-variation-settings: 'wdth' 80;
   max-width: 22ch;
   line-height: 1.05;
 }
@@ -1434,10 +1419,9 @@ button.filters__btn.is-active {
   font-size: var(--fs-xl);
   font-weight: 650;
   letter-spacing: -0.03em;
-  font-variation-settings: 'wdth' 80;
 }
 .timeline__item p {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--fs-md);
   color: var(--ink-2);
   max-width: 44ch;
@@ -1459,7 +1443,6 @@ button.filters__btn.is-active {
 }
 .article__title {
   font-size: var(--fs-2xl);
-  font-variation-settings: 'wdth' 82;
   letter-spacing: -0.04em;
   max-width: 22ch;
 }
@@ -1696,7 +1679,6 @@ button.filters__btn.is-active {
   font-weight: 700;
   line-height: 0.85;
   letter-spacing: -0.06em;
-  font-variation-settings: 'wdth' 75;
   color: transparent;
   -webkit-text-stroke: 2px var(--ink);
 }
@@ -1720,4 +1702,240 @@ button.filters__btn.is-active {
   .arena__ring {
     stroke-dashoffset: 0;
   }
+}
+
+/* =========================================================
+   Tipografi: Instrument Serif untuk judul, Plus Jakarta Sans untuk teks
+   ========================================================= */
+h1,
+h2,
+.hero__title,
+.h2,
+.pagehead__title,
+.case-hero__title,
+.article__title,
+.svc-list__title,
+.svc-index__title,
+.tile__title,
+.ctaband__title,
+.footer__mail,
+.footer__headline,
+.next-case__title,
+.results__value,
+.facts dd,
+.timeline__y,
+.steps__n,
+.notfound__code,
+.mobile-menu__link,
+.form-sent__title,
+.principles__t {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.hero__title {
+  font-size: clamp(3.1rem, 1.2rem + 7vw, 7.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+.h2,
+.pagehead__title,
+.case-hero__title,
+.article__title,
+.ctaband__title,
+.next-case__title {
+  font-size: clamp(2.6rem, 1.5rem + 3.8vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.svc-list__title,
+.svc-index__title,
+.tile--large .tile__title {
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
+}
+.tile__title {
+  font-size: clamp(1.55rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.1;
+}
+.results__value {
+  font-size: clamp(3rem, 2rem + 3vw, 4.75rem);
+}
+.steps__n {
+  font-size: 4.25rem;
+  font-style: italic;
+}
+.notfound__code {
+  -webkit-text-stroke: 1.5px var(--ink);
+}
+.footer__mail {
+  font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.25rem);
+}
+.principles__t,
+.form-sent__title {
+  font-size: clamp(1.7rem, 1.3rem + 1vw, 2.1rem);
+}
+h3,
+h4,
+.h3,
+.steps__t,
+.postrow__title,
+.jobs__title,
+.prose h2,
+.prose h3 {
+  font-family: var(--sans);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.lead,
+.pagehead__lead,
+.hero__lead,
+.svc-index__sum,
+.tile__summary,
+.timeline__item p {
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.prose {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+.logo__word {
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+.logo__thin {
+  font-weight: 400;
+}
+
+/* =========================================================
+   Foto (Unsplash) — lihat src/components/Photo.jsx
+   ========================================================= */
+.photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink-2);
+  width: 100%;
+  height: 100%;
+}
+.photo img,
+.photo .art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo__credit {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: 0.75rem;
+  color: #fff;
+  background: rgba(20, 26, 70, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+.wide-photo {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.wide-photo .photo {
+  border-radius: 1.25rem;
+}
+.wide-photo .photo img {
+  animation: photoIn 1.4s var(--ease) both;
+}
+@keyframes photoIn {
+  from {
+    transform: scale(1.08);
+    opacity: 0.4;
+  }
+}
+.photo--side {
+  margin-top: 1.5rem;
+  border-radius: 1rem;
+  height: auto;
+  max-width: 22rem;
+}
+.tile__media .photo img {
+  transition: transform 0.9s var(--ease);
+}
+.tile__link:hover .tile__media .photo img {
+  transform: scale(1.04);
+}
+.case-hero__art .photo img {
+  animation: artIn 1.4s var(--ease) both;
+}
+
+/* Pratinjau foto layanan mengikuti kursor */
+.svc-wrap {
+  position: relative;
+}
+.svc-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  aspect-ratio: 13 / 9;
+  margin: -6rem 0 0 1.5rem;
+  pointer-events: none;
+  z-index: 3;
+}
+.svc-preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.9rem;
+  box-shadow: 0 24px 48px -16px rgba(20, 26, 70, 0.45);
+}
+@media (hover: none), (max-width: 900px) {
+  .svc-preview {
+    display: none;
+  }
+}
+
+/* Pita foto studio di beranda */
+.studio {
+  position: relative;
+  min-height: clamp(30rem, 70vh, 44rem);
+  display: grid;
+  align-items: end;
+  color: #fff;
+  isolation: isolate;
+}
+.studio__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.studio__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 26, 70, 0.05) 20%, rgba(20, 26, 70, 0.88) 100%);
+}
+.studio__photo .photo__credit {
+  top: 0.75rem;
+  bottom: auto;
+  z-index: 1;
+}
+.studio__text {
+  padding-block: clamp(3rem, 7vw, 5rem);
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+}
+.studio__text .h2 {
+  max-width: 16ch;
+}
+.studio__text p {
+  max-width: 44ch;
+  font-size: var(--fs-md);
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer__headline {
+  line-height: 1.15;
 }

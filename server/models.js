@@ -47,6 +47,13 @@ function withMarkdown(schema, src = 'body', out = 'bodyHtml') {
   });
 }
 
+/** Foto sampul (URL, mis. dari Unsplash) + teks alternatif + kredit fotografer. */
+const imageFields = {
+  image: { type: String, trim: true, maxlength: 500, match: [/^(https:\/\/|\/)\S+$/, 'URL gambar harus diawali https:// atau /'] },
+  imageAlt: { type: String, trim: true, maxlength: 200 },
+  imageCredit: { type: String, trim: true, maxlength: 120 },
+};
+
 const seoFields = {
   seoTitle: { type: String, trim: true, maxlength: 70 },
   seoDescription: { type: String, trim: true, maxlength: 170 },
@@ -63,6 +70,7 @@ const ServiceSchema = new Schema(
     deliverables: [{ type: String, trim: true }],
     order: { type: Number, default: 0 },
     published: { type: Boolean, default: true },
+    ...imageFields,
     ...seoFields,
   },
   { timestamps: true }
@@ -89,6 +97,7 @@ const ProjectSchema = new Schema(
     featured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     published: { type: Boolean, default: true },
+    ...imageFields,
     ...seoFields,
   },
   { timestamps: true }
@@ -109,6 +118,7 @@ const PostSchema = new Schema(
     readingMinutes: { type: Number, default: 1 },
     published: { type: Boolean, default: true },
     publishedAt: { type: Date, default: Date.now, index: true },
+    ...imageFields,
     ...seoFields,
   },
   { timestamps: true }
@@ -142,6 +152,7 @@ const JobSchema = new Schema(
     bodyHtml: { type: String, default: '' },
     published: { type: Boolean, default: true },
     validThrough: { type: Date },
+    ...imageFields,
     ...seoFields,
   },
   { timestamps: true }

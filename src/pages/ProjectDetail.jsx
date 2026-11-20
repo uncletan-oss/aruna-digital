@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo.jsx';
-import ArenaArt from '../components/ArenaArt.jsx';
+import Photo, { imageUrl } from '../components/Photo.jsx';
 import { Breadcrumbs, Prose, CtaBand } from '../components/ui.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
 import { site } from '../site.js';
@@ -18,6 +18,7 @@ export default function ProjectDetail({ data }) {
         title={p.seoTitle || `${p.title} — ${p.client}`}
         description={p.seoDescription || p.summary}
         type="article"
+        image={p.image ? imageUrl(p.image, 1200, 630) : undefined}
         breadcrumbs={crumbs}
         modified={p.updatedAt}
         jsonLd={[
@@ -61,7 +62,14 @@ export default function ProjectDetail({ data }) {
           </dl>
         </div>
         <div className="case-hero__art">
-          <ArenaArt seed={p.slug} accent={p.accent} title={`Ilustrasi proyek ${p.client}`} />
+          <Photo
+            src={p.image}
+            alt={p.imageAlt || `Ilustrasi proyek ${p.client}`}
+            seed={p.slug}
+            accent={p.accent}
+            credit={p.imageCredit}
+            priority
+          />
         </div>
       </header>
 

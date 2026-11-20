@@ -4,9 +4,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
 import { DataProvider, setRuntime } from './lib/data.jsx';
 import { initAnalytics } from './lib/analytics.js';
-import '@fontsource-variable/bricolage-grotesque/standard.css';
-import '@fontsource-variable/newsreader/opsz.css';
-import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/plus-jakarta-sans/wght.css';
+import '@fontsource/instrument-serif/400.css';
 import './styles/global.css';
 
 const el = document.getElementById('__DATA__');

@@ -75,7 +75,22 @@ async function main() {
   }
   for (const u of apiUrls) await write(dataFile(u), await (await get(u)).text());
 
-  // 5. GitHub Pages: matikan Jekyll, domain kustom opsional
+  // 5. Cek semua foto Unsplash yang dipakai masih bisa diakses (peringatan di GitHub Actions)
+  const html = await (await get('/')).text();
+  const all = [html, ...(await Promise.all([...apiUrls].map(async (u) => (await get(u)).text())))].join(' ');
+  const extra = (await Promise.all(['/tentang', '/karier'].map(async (p) => (await get(p)).text()))).join(' ');
+  const photos = [...new Set((all + extra).match(/https:\/\/images\.unsplash\.com\/photo-[\w-]+/g) || [])];
+  let broken = 0;
+  for (const src of photos) {
+    const r = await fetch(`${src}?w=16`, { method: 'HEAD' }).catch(() => null);
+    if (!r || !r.ok) {
+      broken++;
+      console.log(`::warning title=Foto tidak dapat dimuat::${src} (HTTP ${r ? r.status : 'gagal'})`);
+    }
+  }
+  console.log(`[export] cek foto: ${photos.length - broken}/${photos.length} OK`);
+
+  // 6. GitHub Pages: matikan Jekyll, domain kustom opsional
   await write('.nojekyll', '');
   if (CNAME) await write('CNAME', CNAME + '\n');
 

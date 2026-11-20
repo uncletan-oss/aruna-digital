@@ -8,7 +8,8 @@ React (SSR) + Node.js/Express + MongoDB, dikemas satu container untuk **Google C
 **Situs publik**
 - Beranda, Layanan (+ detail), Portofolio/studi kasus (+ filter industri & detail), Tentang, Wawasan/blog (+ topik, paginasi, detail), Karier (+ detail & formulir lamaran), Kontak, Kebijakan privasi, 404.
 - Desain khas: cakrawala bertingkat dengan matahari terbit (*aruna* = fajar) yang tergambar saat halaman dibuka, transisi tirai antar-halaman, ilustrasi generatif per studi kasus (tanpa perlu upload gambar), indikator progres baca, menu seluler animasi. Menghormati `prefers-reduced-motion`.
-- Font di-host sendiri (Fontsource) — tidak bergantung pada Google Fonts.
+- Tipografi: **Instrument Serif** (judul) + **Plus Jakarta Sans** (teks), di-host sendiri lewat Fontsource.
+- Foto gratis dari **Unsplash** ([lisensi Unsplash](https://unsplash.com/license): bebas dipakai komersial, kredit fotografer ditampilkan). Foto statis diatur di `src/site.js` (`photos`), foto konten diatur per item di CMS (grup **Foto**). Jika foto gagal dimuat, otomatis diganti ilustrasi generatif.
 
 **SEO**
 - **Server-side rendering** penuh: HTML lengkap (konten + meta) untuk setiap URL, data diambil langsung dari MongoDB; React lalu meng-hydrate.

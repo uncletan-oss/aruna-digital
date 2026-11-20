@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo.jsx';
 import { PageHead, Prose, ProjectTile, CtaBand } from '../components/ui.jsx';
+import Photo, { imageUrl } from '../components/Photo.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
 import { site } from '../site.js';
 
@@ -18,6 +19,7 @@ export default function ServiceDetail({ data }) {
         description={s.seoDescription || s.summary}
         breadcrumbs={crumbs}
         modified={s.updatedAt}
+        image={s.image ? imageUrl(s.image, 1200, 630) : undefined}
         jsonLd={[
           {
             '@context': 'https://schema.org',
@@ -32,6 +34,11 @@ export default function ServiceDetail({ data }) {
         ]}
       />
       <PageHead title={s.title} lead={s.summary} crumbs={crumbs} />
+      {s.image && (
+        <div className="wrap wide-photo">
+          <Photo src={s.image} alt={s.imageAlt || ''} ratio={21 / 9} credit={s.imageCredit} seed={s.slug} priority />
+        </div>
+      )}
 
       <div className="wrap detail">
         <div className="detail__main">

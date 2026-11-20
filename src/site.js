@@ -33,6 +33,33 @@ export const site = {
   },
 };
 
+/**
+ * Foto untuk halaman statis — gratis dari Unsplash (unsplash.com/license:
+ * boleh dipakai komersial tanpa izin). Ganti URL di sini bila perlu.
+ */
+export const photos = {
+  studio: {
+    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c',
+    alt: 'Tim bekerja bersama di depan laptop',
+    credit: 'Annie Spratt',
+  },
+  team: {
+    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0',
+    alt: 'Presentasi tim di ruang rapat',
+    credit: 'Campaign Creators',
+  },
+  jakarta: {
+    src: 'https://images.unsplash.com/photo-1600481017849-4e1c1346ea2f',
+    alt: 'Gedung-gedung tinggi di Jakarta pada siang hari',
+    credit: 'Helen G',
+  },
+  careers: {
+    src: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d',
+    alt: 'Rekan kerja berdiskusi di sekitar meja',
+    credit: 'Annie Spratt',
+  },
+};
+
 export const nav = [
   { to: '/layanan', label: 'Layanan' },
   { to: '/portofolio', label: 'Portofolio' },

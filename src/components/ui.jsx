@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ArenaArt from './ArenaArt.jsx';
+import Photo from './Photo.jsx';
 
 export const fmtDate = (d) =>
   new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
@@ -49,7 +49,14 @@ export function ProjectTile({ p, large = false, headingLevel = 3 }) {
     <article className={`tile${large ? ' tile--large' : ''}`}>
       <Link to={`/portofolio/${p.slug}`} className="tile__link">
         <div className="tile__media">
-          <ArenaArt seed={p.slug} accent={p.accent} />
+          <Photo
+            src={p.image}
+            alt={p.imageAlt || ''}
+            ratio={large ? 21 / 9 : 3 / 2}
+            sizes={large ? '(min-width: 1280px) 1250px, 100vw' : '(min-width: 760px) 50vw, 100vw'}
+            seed={p.slug}
+            accent={p.accent}
+          />
         </div>
         <div className="tile__body">
           <p className="tile__client">

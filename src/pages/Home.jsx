@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import Seo, { organizationLd } from '../components/Seo.jsx';
 import HeroArena from '../components/HeroArena.jsx';
+import ServiceList from '../components/ServiceList.jsx';
+import Photo from '../components/Photo.jsx';
+import { photos } from '../site.js';
 import { ProjectTile, PostRow, CtaBand } from '../components/ui.jsx';
 import { useSiteOpts } from '../lib/data.jsx';
 import { useSite } from '../lib/useSite.js';
@@ -96,16 +99,23 @@ export default function Home({ data }) {
               Semua layanan
             </Link>
           </div>
-          <ul className="svc-list">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link to={`/layanan/${s.slug}`} className="svc-list__item">
-                  <span className="svc-list__title">{s.title}</span>
-                  <span className="svc-list__sum">{s.summary}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <ServiceList services={services} />
+        </div>
+      </section>
+
+      <section className="studio" aria-labelledby="h-studio">
+        <Photo src={photos.studio.src} alt={photos.studio.alt} credit={photos.studio.credit} sizes="100vw" className="studio__photo" />
+        <div className="wrap studio__text">
+          <h2 id="h-studio" className="h2 h2--light">
+            Satu tim dari ide sampai produk berjalan.
+          </h2>
+          <p>
+            Product manager, desainer, dan engineer kami duduk di meja yang sama — begitu juga dengan tim Anda selama
+            proyek berlangsung.
+          </p>
+          <Link to="/tentang" className="btn btn--dawn">
+            Kenali tim kami
+          </Link>
         </div>
       </section>
 

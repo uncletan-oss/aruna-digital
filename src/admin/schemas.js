@@ -2,6 +2,12 @@
  * Definisi form CMS per jenis konten.
  * type: text | textarea | markdown | number | checkbox | date | list | select | color | results
  */
+const image = [
+  { name: 'image', label: 'URL foto sampul', type: 'image', group: 'Foto', hint: 'Foto gratis: buka unsplash.com, pilih foto, klik kanan → Copy image address, lalu tempel di sini.' },
+  { name: 'imageAlt', label: 'Deskripsi foto (alt)', type: 'text', group: 'Foto', hint: 'Penting untuk SEO dan pembaca layar.' },
+  { name: 'imageCredit', label: 'Nama fotografer', type: 'text', group: 'Foto' },
+];
+
 const seo = [
   { name: 'seoTitle', label: 'Judul SEO', type: 'text', group: 'SEO', hint: 'Maks. 70 karakter. Kosongkan untuk memakai judul.', max: 70 },
   { name: 'seoDescription', label: 'Deskripsi SEO', type: 'textarea', group: 'SEO', hint: 'Maks. 170 karakter. Muncul di hasil pencarian Google.', max: 170 },
@@ -24,6 +30,7 @@ export const schemas = {
       { name: 'body', label: 'Isi halaman', type: 'markdown' },
       { name: 'order', label: 'Urutan tampil', type: 'number' },
       { name: 'published', label: 'Tayang di situs', type: 'checkbox', default: true },
+      ...image,
       ...seo,
     ],
   },
@@ -53,6 +60,7 @@ export const schemas = {
       { name: 'featured', label: 'Tampilkan di beranda', type: 'checkbox' },
       { name: 'order', label: 'Urutan tampil', type: 'number' },
       { name: 'published', label: 'Tayang di situs', type: 'checkbox', default: true },
+      ...image,
       ...seo,
     ],
   },
@@ -74,6 +82,7 @@ export const schemas = {
       { name: 'tags', label: 'Topik', type: 'list', hint: 'Satu topik per baris, huruf kecil.' },
       { name: 'publishedAt', label: 'Tanggal terbit', type: 'date', hint: 'Tanggal di masa depan = terjadwal.' },
       { name: 'published', label: 'Tayang di situs', type: 'checkbox', default: true },
+      ...image,
       ...seo,
     ],
   },
@@ -108,6 +117,7 @@ export const schemas = {
       { name: 'body', label: 'Deskripsi lengkap', type: 'markdown' },
       { name: 'validThrough', label: 'Ditutup pada', type: 'date' },
       { name: 'published', label: 'Tayang di situs', type: 'checkbox', default: true },
+      ...image,
       ...seo,
     ],
   },

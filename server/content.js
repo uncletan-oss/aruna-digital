@@ -9,8 +9,8 @@ const SETTING_FIELDS =
   'heroTitle heroLead email careersEmail phone whatsapp hours street locality region postalCode linkedin instagram github announcement';
 
 const PUBLIC = { published: true };
-const LIST_PROJECT = 'slug title client industry year services summary accent results featured';
-const LIST_POST = 'slug title excerpt author tags readingMinutes publishedAt';
+const LIST_PROJECT = 'slug title client industry year services summary accent results featured image imageAlt';
+const LIST_POST = 'slug title excerpt author tags readingMinutes publishedAt image imageAlt';
 const PAGE_SIZE = 9;
 
 const lean = (q) => q.lean({ virtuals: false });
@@ -26,7 +26,7 @@ export const content = {
 
   async home() {
     const [services, projects, posts, jobs] = await Promise.all([
-      lean(Service.find(PUBLIC).sort({ order: 1 }).select('slug title summary').limit(6)),
+      lean(Service.find(PUBLIC).sort({ order: 1 }).select('slug title summary image imageAlt').limit(6)),
       lean(Project.find(PUBLIC).sort({ featured: -1, order: 1, year: -1 }).select(LIST_PROJECT).limit(3)),
       lean(Post.find({ ...PUBLIC, publishedAt: { $lte: new Date() } }).sort({ publishedAt: -1 }).select(LIST_POST).limit(3)),
       Job.countDocuments(PUBLIC),
@@ -35,7 +35,7 @@ export const content = {
   },
 
   async services() {
-    return lean(Service.find(PUBLIC).sort({ order: 1 }).select('slug title summary deliverables'));
+    return lean(Service.find(PUBLIC).sort({ order: 1 }).select('slug title summary deliverables image imageAlt'));
   },
 
   async service({ slug }) {

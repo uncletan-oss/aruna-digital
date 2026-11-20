@@ -1,6 +1,7 @@
 import Seo from '../components/Seo.jsx';
 import { PageHead, CtaBand } from '../components/ui.jsx';
-import { site } from '../site.js';
+import { site, photos } from '../site.js';
+import Photo from '../components/Photo.jsx';
 
 const principles = [
   {
@@ -40,6 +41,10 @@ export default function About() {
         title="Kami tim engineer dan desainer yang lebih suka merilis daripada presentasi."
         crumbs={[{ name: 'Tentang', path: '/tentang' }]}
       />
+
+      <div className="wrap wide-photo">
+        <Photo src={photos.team.src} alt={photos.team.alt} credit={photos.team.credit} ratio={21 / 9} priority />
+      </div>
 
       <section className="wrap about-intro">
         <p className="lead">
@@ -86,6 +91,7 @@ export default function About() {
         <div className="wrap split">
           <div className="split__head">
             <h2 className="h2">Perjalanan</h2>
+            <Photo src={photos.jakarta.src} alt={photos.jakarta.alt} credit={photos.jakarta.credit} ratio={4 / 5} sizes="(min-width: 900px) 30vw, 100vw" className="photo--side" />
           </div>
           <ol className="timeline">
             {milestones.map((m) => (

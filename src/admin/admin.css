@@ -547,7 +547,7 @@
   background: #f6f7fa;
   border-radius: 0.6rem;
   padding: 1rem;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -654,4 +654,24 @@
     grid-template-columns: 1fr;
     gap: 0.15rem;
   }
+}
+.adm h1,
+.adm h2,
+.adm-login h1 {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.adm-imgprev {
+  margin-top: 0.5rem;
+  max-width: 22rem;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #eef0f5;
+}
+.adm-imgprev img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
