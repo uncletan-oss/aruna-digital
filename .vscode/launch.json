@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dev server (SSR + hot reload)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/index.js",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Production build lokal",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "npm: build",
+      "program": "${workspaceFolder}/server/index.js",
+      "envFile": "${workspaceFolder}/.env",
+      "env": { "NODE_ENV": "production" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Seed database",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server/seed.js",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    }
+  ]
+}
