@@ -30,7 +30,7 @@ jobs:
         ports:
           - 27017:27017
     env:
-      MONGODB_URI: mongodb://127.0.0.1:27017/aruna_digital
+      MONGODB_URI: mongodb://127.0.0.1:27017/arunadigital
       CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
     steps:
       - uses: actions/checkout@v4

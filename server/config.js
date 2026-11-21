@@ -10,7 +10,7 @@ if (isProd && (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32)) {
 export const config = {
   isProd,
   port: Number(process.env.PORT) || 8080,
-  mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/aruna_digital',
+  mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/arunadigital',
   siteUrl: (process.env.SITE_URL || 'https://aruna-digital.com').replace(/\/$/, ''),
   jwtSecret: process.env.JWT_SECRET || 'dev-only-secret-change-me-dev-only-secret',
   adminEmail: process.env.ADMIN_EMAIL || '',
