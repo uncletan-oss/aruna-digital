@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import Seo, { organizationLd } from '../components/Seo.jsx';
 import ServiceList from '../components/ServiceList.jsx';
+import { Reveal, CountUp } from '../components/Motion.jsx';
+import { StatusBadge } from './Products.jsx';
+import { fmtDate } from '../components/ui.jsx';
 import Photo from '../components/Photo.jsx';
 import { photos } from '../site.js';
 import { ProjectTile, PostRow, CtaBand } from '../components/ui.jsx';
@@ -21,7 +24,7 @@ const DEFAULT_LEAD =
 export default function Home({ data }) {
   const { siteUrl } = useSiteOpts();
   const site = useSite();
-  const { services = [], projects = [], posts = [], openJobs = 0 } = data || {};
+  const { services = [], projects = [], posts = [], openJobs = 0, products = [], stats = {} } = data || {};
   const [lead, ...rest] = projects;
   // Judul hero dari CMS: setiap baris baru menjadi satu baris animasi.
   const heroLines = (site.heroTitle || DEFAULT_TITLE).split(/\n+/).filter(Boolean);
@@ -108,6 +111,76 @@ export default function Home({ data }) {
         </div>
       </section>
 
+      <section className="stats-band" aria-label="Aruna dalam angka">
+        <div className="wrap stats-band__grid">
+          <div>
+            <p className="stats-band__n">
+              <CountUp value={stats.projects || 0} suffix="+" />
+            </p>
+            <p className="stats-band__l">studi kasus terpublikasi</p>
+          </div>
+          <div>
+            <p className="stats-band__n">
+              <CountUp value={stats.releases || 0} />
+            </p>
+            <p className="stats-band__l">rilis produk sejak 2024</p>
+          </div>
+          <div>
+            <p className="stats-band__n">
+              <CountUp value={stats.members || 0} />
+            </p>
+            <p className="stats-band__l">orang di tim inti</p>
+          </div>
+          <div>
+            <p className="stats-band__n">
+              <CountUp value={new Date().getFullYear() - Number(site.founded)} suffix="+" />
+            </p>
+            <p className="stats-band__l">tahun membangun produk</p>
+          </div>
+        </div>
+      </section>
+
+      {products.length > 0 && (
+        <section className="section" aria-labelledby="h-produk">
+          <div className="wrap">
+            <div className="section__head">
+              <div>
+                <h2 id="h-produk" className="h2">
+                  Produk kami
+                </h2>
+                <p className="section__lead">Perangkat lunak siap pakai yang lahir dari proyek klien.</p>
+              </div>
+              <Link to="/produk" className="link-quiet">
+                Semua produk
+              </Link>
+            </div>
+            <div className="prod-cards">
+              {products.map((p, i) => (
+                <Reveal key={p.slug} delay={i * 0.1}>
+                  <Link to={`/produk/${p.slug}`} className="prod-card" style={{ '--accent': p.accent }}>
+                    <div className="prod-card__media">
+                      <Photo src={p.image} alt="" ratio={16 / 10} sizes="(min-width: 960px) 33vw, 100vw" seed={p.slug} accent={p.accent} />
+                    </div>
+                    <div className="prod-card__body">
+                      <p className="prod-row__meta">
+                        <StatusBadge status={p.status} />
+                      </p>
+                      <h3 className="prod-card__name">{p.name}</h3>
+                      <p className="prod-card__tagline">{p.tagline}</p>
+                      {p.latest && (
+                        <p className="prod-card__latest">
+                          <span className="prod-row__ver">v{p.latest.version}</span> {fmtDate(p.latest.date)}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="studio" aria-labelledby="h-studio">
         <Photo src={photos.studio.src} alt={photos.studio.alt} credit={photos.studio.credit} sizes="100vw" className="studio__photo" />
         <div className="wrap studio__text">
@@ -118,7 +191,7 @@ export default function Home({ data }) {
             Product manager, desainer, dan engineer kami duduk di meja yang sama — begitu juga dengan tim Anda selama
             proyek berlangsung.
           </p>
-          <Link to="/tentang" className="btn btn--dawn">
+          <Link to="/tim" className="btn btn--dawn">
             Kenali tim kami
           </Link>
         </div>

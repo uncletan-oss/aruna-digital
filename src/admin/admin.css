@@ -675,3 +675,31 @@
   height: 100%;
   object-fit: cover;
 }
+.adm-releases {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+.adm-release {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+  background: #fafbfd;
+}
+.adm-release__top {
+  display: grid;
+  grid-template-columns: 6rem 10rem 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+.adm-release input,
+.adm-release textarea {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: #fff;
+}

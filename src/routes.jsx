@@ -11,6 +11,10 @@ import Careers from './pages/Careers.jsx';
 import JobDetail from './pages/JobDetail.jsx';
 import Contact from './pages/Contact.jsx';
 import Privacy from './pages/Privacy.jsx';
+import Products from './pages/Products.jsx';
+import ProductDetail from './pages/ProductDetail.jsx';
+import Team from './pages/Team.jsx';
+import Faq from './pages/Faq.jsx';
 import AdminGate from './admin/AdminGate.jsx';
 
 const qs = (search, allowed) => {
@@ -31,6 +35,10 @@ export const routes = [
   { path: '/layanan/:slug', Component: ServiceDetail, data: ({ params }) => `/api/services/${params.slug}` },
   { path: '/portofolio', Component: Projects, data: () => '/api/projects' },
   { path: '/portofolio/:slug', Component: ProjectDetail, data: ({ params }) => `/api/projects/${params.slug}` },
+  { path: '/produk', Component: Products, data: () => '/api/products' },
+  { path: '/produk/:slug', Component: ProductDetail, data: ({ params }) => `/api/products/${params.slug}` },
+  { path: '/tim', Component: Team, data: () => '/api/team' },
+  { path: '/faq', Component: Faq, data: () => '/api/faqs' },
   { path: '/tentang', Component: About },
   {
     path: '/wawasan',

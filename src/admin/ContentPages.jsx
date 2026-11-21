@@ -109,7 +109,7 @@ export function ContentList() {
                   <td className="adm-muted">{fmtDateTime(item.updatedAt)}</td>
                   <td className="adm-table__actions">
                     {item.published && (
-                      <a href={`${schema.publicPath}${item.slug}`} target="_blank" rel="noreferrer" className="adm-link">
+                      <a href={schema.publicPage || `${schema.publicPath}${item.slug}`} target="_blank" rel="noreferrer" className="adm-link">
                         Lihat
                       </a>
                     )}
@@ -200,7 +200,7 @@ export function ContentEditor() {
         <div className="adm-actions">
           {dirty && <span className="adm-muted">Belum disimpan</span>}
           {!isNew && doc.published && (
-            <a className="adm-btn" href={`${schema.publicPath}${doc.slug}`} target="_blank" rel="noreferrer">
+            <a className="adm-btn" href={schema.publicPage || `${schema.publicPath}${doc.slug}`} target="_blank" rel="noreferrer">
               Lihat di situs
             </a>
           )}

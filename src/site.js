@@ -48,6 +48,11 @@ export const photos = {
     alt: 'Ruang rapat kantor modern dengan meja dan kursi',
     credit: 'Nastuh Abootalebi',
   },
+  products: {
+    src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+    alt: 'Laptop menampilkan grafik analitik',
+    credit: 'Carlos Muza',
+  },
   portfolio: {
     src: 'https://images.unsplash.com/photo-1696832204235-5676c7ee9105',
     alt: 'Gedung-gedung tinggi di tepi perairan',
@@ -102,17 +107,31 @@ export const photos = {
 
 export const nav = [
   { to: '/layanan', label: 'Layanan' },
+  { to: '/produk', label: 'Produk' },
   { to: '/portofolio', label: 'Portofolio' },
-  { to: '/tentang', label: 'Tentang' },
   { to: '/wawasan', label: 'Wawasan' },
-  { to: '/karier', label: 'Karier' },
+  {
+    label: 'Perusahaan',
+    children: [
+      { to: '/tentang', label: 'Tentang kami', text: 'Cerita, prinsip, dan perjalanan Aruna' },
+      { to: '/tim', label: 'Tim', text: 'Orang-orang di balik setiap rilis' },
+      { to: '/karier', label: 'Karier', text: 'Posisi terbuka dan cara melamar' },
+      { to: '/faq', label: 'FAQ', text: 'Biaya, durasi, dan cara kerja sama' },
+    ],
+  },
 ];
+
+/** Navigasi datar (untuk menu seluler & footer). */
+export const flatNav = nav.flatMap((n) => n.children || [n]);
 
 /** Halaman statis untuk sitemap (path, prioritas, frekuensi). */
 export const staticPages = [
   { path: '/', priority: 1.0, changefreq: 'weekly' },
   { path: '/layanan', priority: 0.9, changefreq: 'monthly' },
   { path: '/portofolio', priority: 0.9, changefreq: 'weekly' },
+  { path: '/produk', priority: 0.9, changefreq: 'weekly' },
+  { path: '/tim', priority: 0.6, changefreq: 'monthly' },
+  { path: '/faq', priority: 0.6, changefreq: 'monthly' },
   { path: '/tentang', priority: 0.7, changefreq: 'monthly' },
   { path: '/wawasan', priority: 0.8, changefreq: 'daily' },
   { path: '/karier', priority: 0.7, changefreq: 'weekly' },

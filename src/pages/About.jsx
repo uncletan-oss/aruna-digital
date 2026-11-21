@@ -101,7 +101,7 @@ export default function About() {
         </div>
       </section>
 
-      <CtaBand title="Ingin bekerja bersama kami?" text="Sebagai klien atau sebagai anggota tim." to="/karier" label="Lihat lowongan" />
+      <CtaBand title="Kenali orang-orang di balik Aruna." text="Engineer, desainer, data scientist, dan spesialis keamanan yang akan bekerja bersama Anda." to="/tim" label="Lihat tim kami" />
     </>
   );
 }

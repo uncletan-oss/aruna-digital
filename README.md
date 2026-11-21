@@ -6,7 +6,7 @@ React (SSR) + Node.js/Express + MongoDB, dikemas satu container untuk **Google C
 ## Fitur
 
 **Situs publik**
-- Beranda, Layanan (+ detail), Portofolio/studi kasus (+ filter industri & detail), Tentang, Wawasan/blog (+ topik, paginasi, detail), Karier (+ detail & formulir lamaran), Kontak, Kebijakan privasi, 404.
+- Beranda, Layanan (+ detail), **Produk** (+ detail dengan timeline catatan rilis), Portofolio/studi kasus (+ filter industri & detail), Tentang, **Tim** (filter divisi), Wawasan/blog (+ topik, paginasi, detail), Karier (+ detail & formulir lamaran), **FAQ**, Kontak, Kebijakan privasi, 404.
 - Desain khas: cakrawala bertingkat dengan matahari terbit (*aruna* = fajar) yang tergambar saat halaman dibuka, transisi tirai antar-halaman, ilustrasi generatif per studi kasus (tanpa perlu upload gambar), indikator progres baca, menu seluler animasi. Menghormati `prefers-reduced-motion`.
 - Tipografi: **Instrument Serif** (judul) + **Plus Jakarta Sans** (teks), di-host sendiri lewat Fontsource.
 - Foto gratis dari **Unsplash** ([lisensi Unsplash](https://unsplash.com/license): bebas dipakai komersial, kredit fotografer ditampilkan). Foto statis diatur di `src/site.js` (`photos`), foto konten diatur per item di CMS (grup **Foto**). Jika foto gagal dimuat, otomatis diganti ilustrasi generatif.
@@ -21,7 +21,7 @@ React (SSR) + Node.js/Express + MongoDB, dikemas satu container untuk **Google C
 **CMS (`/admin`)**
 - Login aman (bcrypt + JWT di cookie httpOnly, SameSite=Strict, rate limit).
 - Ringkasan statistik, kotak masuk pesan kontak & lamaran (tandai dibaca, balas via email, hapus).
-- Kelola Layanan, Portofolio, Wawasan, Karier: buat/ubah/hapus, tayang/draf, editor Markdown dengan toolbar + pratinjau, penjadwalan artikel (tanggal terbit di masa depan), pengaturan SEO.
+- Kelola Layanan, Produk (termasuk catatan rilis), Portofolio, Wawasan, Karier, Tim, dan FAQ: buat/ubah/hapus, tayang/draf, editor Markdown dengan toolbar + pratinjau, penjadwalan artikel (tanggal terbit di masa depan), pengaturan SEO.
 - Pengaturan situs tanpa deploy ulang: teks hero, pengumuman, email, telepon, WhatsApp, alamat, media sosial.
 - Newsletter (unduh CSV), manajemen akun admin dengan peran **Owner** / **Editor**, ganti kata sandi.
 
@@ -122,4 +122,4 @@ Health check: `GET /healthz` (200 bila MongoDB terhubung).
 - Warna & tipografi: variabel di awal `src/styles/global.css`.
 - Gambar Open Graph default: `public/og-default.png` (1200×630).
 
-> Konten contoh dari `npm run seed` (klien, angka hasil, nama penulis, statistik di halaman Tentang) adalah fiktif. Ganti sebelum situs dipublikasikan.
+> Konten contoh dari `npm run seed` (klien, produk, anggota tim, angka hasil, nama penulis, statistik di halaman Tentang) adalah fiktif. Ganti sebelum situs dipublikasikan.

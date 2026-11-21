@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { config } from '../config.js';
-import { Service, Project, Post, Job } from '../models.js';
+import { Service, Project, Post, Job, Product } from '../models.js';
 import { site, staticPages } from '../../src/site.js';
 
 const router = Router();
@@ -35,11 +35,12 @@ router.get('/robots.txt', (_req, res) => {
 router.get('/sitemap.xml', async (_req, res, next) => {
   try {
     const xml = await cached('sitemap', 10 * 60 * 1000, async () => {
-      const [services, projects, posts, jobs] = await Promise.all([
+      const [services, projects, posts, jobs, products] = await Promise.all([
         Service.find({ published: true }).select('slug updatedAt').lean(),
         Project.find({ published: true }).select('slug updatedAt').lean(),
         Post.find({ published: true, publishedAt: { $lte: new Date() } }).select('slug updatedAt').lean(),
         Job.find({ published: true }).select('slug updatedAt').lean(),
+        Product.find({ published: true }).select('slug updatedAt').lean(),
       ]);
       const now = iso();
       const urls = [
@@ -47,6 +48,7 @@ router.get('/sitemap.xml', async (_req, res, next) => {
         ...services.map((d) => ({ loc: `/layanan/${d.slug}`, lastmod: iso(d.updatedAt), changefreq: 'monthly', priority: 0.8 })),
         ...projects.map((d) => ({ loc: `/portofolio/${d.slug}`, lastmod: iso(d.updatedAt), changefreq: 'monthly', priority: 0.7 })),
         ...posts.map((d) => ({ loc: `/wawasan/${d.slug}`, lastmod: iso(d.updatedAt), changefreq: 'monthly', priority: 0.6 })),
+        ...products.map((d) => ({ loc: `/produk/${d.slug}`, lastmod: iso(d.updatedAt), changefreq: 'weekly', priority: 0.8 })),
         ...jobs.map((d) => ({ loc: `/karier/${d.slug}`, lastmod: iso(d.updatedAt), changefreq: 'weekly', priority: 0.5 })),
       ];
       return (

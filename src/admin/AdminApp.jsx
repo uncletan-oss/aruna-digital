@@ -112,6 +112,8 @@ function Dashboard() {
     ['Studi kasus', stats?.projects, '/admin/konten/projects'],
     ['Artikel', stats?.posts, '/admin/konten/posts'],
     ['Lowongan', stats?.jobs, '/admin/konten/jobs'],
+    ['Produk', stats?.products, '/admin/konten/products'],
+    ['Anggota tim', stats?.team, '/admin/konten/team'],
     ['Pelanggan newsletter', stats?.subscribers, '/admin/newsletter'],
   ];
   return (

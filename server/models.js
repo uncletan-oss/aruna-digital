@@ -160,6 +160,87 @@ const JobSchema = new Schema(
 withSlug(JobSchema);
 withMarkdown(JobSchema);
 
+
+/* ---------- Produk milik Aruna (dengan catatan rilis) ---------- */
+const ReleaseSchema = new Schema(
+  {
+    version: { type: String, required: true, trim: true },
+    date: { type: Date, required: true },
+    title: { type: String, required: true, trim: true },
+    notes: [{ type: String, trim: true }],
+  },
+  { _id: false }
+);
+const ProductSchema = new Schema(
+  {
+    slug: slugField,
+    name: { type: String, required: true, trim: true },
+    title: { type: String, trim: true },
+    tagline: { type: String, required: true, trim: true },
+    category: { type: String, trim: true },
+    status: { type: String, enum: ['GA', 'BETA', 'SEGERA'], default: 'GA' },
+    summary: { type: String, required: true, trim: true },
+    features: [{ type: String, trim: true }],
+    body: { type: String, default: '' },
+    bodyHtml: { type: String, default: '' },
+    releases: [ReleaseSchema],
+    accent: { type: String, default: '#2E4BD8', match: /^#[0-9a-fA-F]{6}$/ },
+    order: { type: Number, default: 0 },
+    published: { type: Boolean, default: true },
+    ...imageFields,
+    ...seoFields,
+  },
+  { timestamps: true }
+);
+ProductSchema.pre('validate', function nameAsTitle(next) {
+  this.title = this.name;
+  next();
+});
+withSlug(ProductSchema, 'name');
+withMarkdown(ProductSchema);
+ProductSchema.pre('save', function sortReleases(next) {
+  if (this.isModified('releases')) this.releases.sort((a, b) => new Date(b.date) - new Date(a.date));
+  next();
+});
+
+/* ---------- Anggota tim ---------- */
+const MemberSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    title: { type: String, trim: true },
+    role: { type: String, required: true, trim: true },
+    department: { type: String, trim: true },
+    bio: { type: String, trim: true, maxlength: 400 },
+    photo: { type: String, trim: true, maxlength: 500 },
+    linkedin: { type: String, trim: true },
+    leadership: { type: Boolean, default: false },
+    order: { type: Number, default: 0 },
+    published: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+MemberSchema.pre('validate', function nameAsTitle(next) {
+  this.title = this.name;
+  next();
+});
+
+/* ---------- FAQ ---------- */
+const FaqSchema = new Schema(
+  {
+    question: { type: String, required: true, trim: true },
+    title: { type: String, trim: true },
+    answer: { type: String, required: true, trim: true },
+    category: { type: String, trim: true, default: 'Umum' },
+    order: { type: Number, default: 0 },
+    published: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+FaqSchema.pre('validate', function qAsTitle(next) {
+  this.title = this.question;
+  next();
+});
+
 /* ---------- Pesan masuk (kontak & lamaran) ---------- */
 const MessageSchema = new Schema(
   {
@@ -230,3 +311,6 @@ export const Message = model('Message', MessageSchema);
 export const Subscriber = model('Subscriber', SubscriberSchema);
 export const User = model('User', UserSchema);
 export const Setting = model('Setting', SettingSchema);
+export const Product = model('Product', ProductSchema);
+export const Member = model('Member', MemberSchema);
+export const Faq = model('Faq', FaqSchema);

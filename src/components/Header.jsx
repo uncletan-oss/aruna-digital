@@ -1,9 +1,76 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Logo from './Logo.jsx';
-import { nav } from '../site.js';
+import { nav, flatNav } from '../site.js';
 import { useSite } from '../lib/useSite.js';
+
+function ActiveDot() {
+  return <motion.span layoutId="nav-dot" className="header__dot" transition={{ type: 'spring', stiffness: 420, damping: 34 }} />;
+}
+
+/** Menu turun "Perusahaan": terbuka saat hover/fokus/klik, tertutup dengan Escape. */
+function NavDropdown({ item }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const timer = useRef();
+  const location = useLocation();
+  const active = item.children.some((c) => location.pathname.startsWith(c.to));
+
+  useEffect(() => setOpen(false), [location.pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    const onClick = (e) => !ref.current?.contains(e.target) && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onClick);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onClick);
+    };
+  }, [open]);
+
+  const enter = () => {
+    clearTimeout(timer.current);
+    setOpen(true);
+  };
+  const leave = () => {
+    timer.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  return (
+    <div className="dd" ref={ref} onPointerEnter={(e) => e.pointerType === 'mouse' && enter()} onPointerLeave={leave}>
+      <button
+        type="button"
+        className={`header__link dd__btn${active ? ' active' : ''}`}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {item.label}
+        <span className={`dd__chev${open ? ' is-open' : ''}`} aria-hidden="true" />
+        {active && <ActiveDot />}
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="dd__panel"
+            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {item.children.map((c) => (
+              <NavLink key={c.to} to={c.to} className="dd__item">
+                <span className="dd__label">{c.label}</span>
+                <span className="dd__text">{c.text}</span>
+              </NavLink>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Header() {
   const site = useSite();
@@ -44,22 +111,20 @@ export default function Header() {
         </Link>
 
         <nav className="header__nav" aria-label="Navigasi utama">
-          {nav.map((item) => (
-            <NavLink key={item.to} to={item.to} className="header__link">
-              {({ isActive }) => (
-                <>
-                  {item.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-dot"
-                      className="header__dot"
-                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
+          {nav.map((item) =>
+            item.children ? (
+              <NavDropdown key={item.label} item={item} />
+            ) : (
+              <NavLink key={item.to} to={item.to} className="header__link">
+                {({ isActive }) => (
+                  <>
+                    {item.label}
+                    {isActive && <ActiveDot />}
+                  </>
+                )}
+              </NavLink>
+            )
+          )}
         </nav>
 
         <Link to="/kontak" className="btn btn--sm header__cta">
@@ -89,7 +154,7 @@ export default function Header() {
             exit={{ clipPath: 'inset(0 0 100% 0)', transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] } }}
           >
             <nav className="wrap mobile-menu__nav" aria-label="Navigasi seluler">
-              {[...nav, { to: '/kontak', label: 'Kontak' }].map((item, i) => (
+              {[...flatNav, { to: '/kontak', label: 'Kontak' }].map((item, i) => (
                 <motion.div
                   key={item.to}
                   initial={{ y: 40, opacity: 0 }}

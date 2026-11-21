@@ -8,7 +8,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { connectDB } from './db.js';
 import { config } from './config.js';
-import { Service, Project, Post, Job, User } from './models.js';
+import { Service, Project, Post, Job, User, Product, Member, Faq } from './models.js';
+import { products, members, faqs, morePosts } from './seed-extra.js';
 
 const services = [
   {
@@ -405,8 +406,11 @@ async function main() {
   console.log(reset ? '[seed] Mode reset' : '[seed] Mengisi koleksi kosong');
   await seedCollection(Service, services, reset);
   await seedCollection(Project, projects, reset);
-  await seedCollection(Post, posts, reset);
+  await seedCollection(Post, [...posts, ...morePosts], reset);
   await seedCollection(Job, jobs, reset);
+  await seedCollection(Product, products, reset);
+  await seedCollection(Member, members, reset);
+  await seedCollection(Faq, faqs, reset);
 
   if (config.adminEmail && config.adminPassword && !(await User.exists({ email: config.adminEmail.toLowerCase() }))) {
     await User.create({

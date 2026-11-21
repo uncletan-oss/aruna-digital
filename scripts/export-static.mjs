@@ -63,7 +63,7 @@ async function main() {
   await write('404.html', await (await get('/__halaman-tidak-ada__', { allow404: true })).text());
 
   // 4. Data JSON untuk navigasi di browser
-  const apiUrls = new Set(['/api/settings', '/api/home', '/api/services', '/api/projects', '/api/posts', '/api/jobs']);
+  const apiUrls = new Set(['/api/settings', '/api/home', '/api/services', '/api/projects', '/api/posts', '/api/jobs', '/api/products', '/api/team', '/api/faqs']);
   const posts = await (await get('/api/posts')).json();
   for (const t of posts.tags || []) {
     apiUrls.add(`/api/posts?tag=${encodeURIComponent(t)}`);
@@ -72,8 +72,8 @@ async function main() {
   }
   for (let n = 2; n <= (posts.pages || 1); n++) apiUrls.add(`/api/posts?page=${n}`);
   for (const p of pages) {
-    const m = p.match(/^\/(layanan|portofolio|wawasan|karier)\/([a-z0-9-]+)$/);
-    if (m) apiUrls.add(`/api/${{ layanan: 'services', portofolio: 'projects', wawasan: 'posts', karier: 'jobs' }[m[1]]}/${m[2]}`);
+    const m = p.match(/^\/(layanan|portofolio|wawasan|karier|produk)\/([a-z0-9-]+)$/);
+    if (m) apiUrls.add(`/api/${{ layanan: 'services', portofolio: 'projects', wawasan: 'posts', karier: 'jobs', produk: 'products' }[m[1]]}/${m[2]}`);
   }
   for (const u of apiUrls) await write(dataFile(u), await (await get(u)).text());
 

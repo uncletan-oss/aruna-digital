@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit';
 import { config } from '../config.js';
-import { Service, Project, Post, Job, Message, Subscriber, User, Setting, renderMarkdown } from '../models.js';
+import { Service, Project, Post, Job, Message, Subscriber, User, Setting, Product, Member, Faq, renderMarkdown } from '../models.js';
 import { clearSeoCache } from './seo.js';
 
 const router = Router();
@@ -94,7 +94,7 @@ router.post('/password', async (req, res, next) => {
 
 router.get('/stats', async (_req, res, next) => {
   try {
-    const [services, projects, posts, jobs, unread, messages, subscribers] = await Promise.all([
+    const [services, projects, posts, jobs, unread, messages, subscribers, products, team] = await Promise.all([
       Service.countDocuments(),
       Project.countDocuments(),
       Post.countDocuments(),
@@ -102,8 +102,10 @@ router.get('/stats', async (_req, res, next) => {
       Message.countDocuments({ read: false }),
       Message.countDocuments(),
       Subscriber.countDocuments(),
+      Product.countDocuments(),
+      Member.countDocuments(),
     ]);
-    res.json({ services, projects, posts, jobs, unread, messages, subscribers });
+    res.json({ services, projects, posts, jobs, unread, messages, subscribers, products, team });
   } catch (e) {
     next(e);
   }
@@ -115,6 +117,9 @@ const resources = {
   projects: { model: Project, sort: { order: 1, year: -1 } },
   posts: { model: Post, sort: { publishedAt: -1 } },
   jobs: { model: Job, sort: { createdAt: -1 } },
+  products: { model: Product, sort: { order: 1 } },
+  team: { model: Member, sort: { leadership: -1, order: 1 } },
+  faqs: { model: Faq, sort: { category: 1, order: 1 } },
 };
 const BLOCKED = ['_id', '__v', 'createdAt', 'updatedAt', 'bodyHtml', 'readingMinutes'];
 const clean = (body = {}) => Object.fromEntries(Object.entries(body).filter(([k]) => !BLOCKED.includes(k)));

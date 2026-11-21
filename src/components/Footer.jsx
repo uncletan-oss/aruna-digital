@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { LogoMark } from './Logo.jsx';
-import { nav } from '../site.js';
+import { flatNav as nav } from '../site.js';
 import { useSite } from '../lib/useSite.js';
 import { postJSON, withBase } from '../lib/data.jsx';
 

@@ -68,6 +68,45 @@ function MarkdownField({ value, onChange, id }) {
   );
 }
 
+const toDate = (v) => (v ? new Date(v).toISOString().slice(0, 10) : '');
+
+function ReleasesField({ value = [], onChange }) {
+  const rows = value || [];
+  const set = (i, k, v) => onChange(rows.map((r, j) => (j === i ? { ...r, [k]: v } : r)));
+  return (
+    <div className="adm-releases">
+      {rows.map((r, i) => (
+        <div key={i} className="adm-release">
+          <div className="adm-release__top">
+            <input aria-label="Versi" placeholder="2.4" value={r.version || ''} onChange={(e) => set(i, 'version', e.target.value)} />
+            <input aria-label="Tanggal rilis" type="date" value={toDate(r.date)} onChange={(e) => set(i, 'date', e.target.value)} />
+            <input aria-label="Judul rilis" placeholder="Judul rilis" value={r.title || ''} onChange={(e) => set(i, 'title', e.target.value)} />
+            <button type="button" className="adm-link adm-link--danger" onClick={() => onChange(rows.filter((_, j) => j !== i))}>
+              Hapus
+            </button>
+          </div>
+          <textarea
+            aria-label="Catatan rilis"
+            rows={3}
+            placeholder="Satu perubahan per baris"
+            value={(r.notes || []).join('\n')}
+            onChange={(e) => set(i, 'notes', e.target.value.split('\n'))}
+            onBlur={(e) => set(i, 'notes', e.target.value.split('\n').map((s) => s.trim()).filter(Boolean))}
+          />
+        </div>
+      ))}
+      <button
+        type="button"
+        className="adm-btn adm-btn--sm"
+        onClick={() => onChange([{ version: '', date: new Date().toISOString().slice(0, 10), title: '', notes: [] }, ...rows])}
+      >
+        Tambah rilis
+      </button>
+      <p className="adm-hint">Rilis otomatis diurutkan dari yang terbaru saat disimpan.</p>
+    </div>
+  );
+}
+
 function ResultsField({ value = [], onChange }) {
   const rows = value.length ? value : [];
   const set = (i, k, v) => onChange(rows.map((r, j) => (j === i ? { ...r, [k]: v } : r)));
@@ -158,6 +197,9 @@ export function FieldInput({ f, value, onChange, error }) {
       break;
     case 'results':
       input = <ResultsField value={value} onChange={onChange} />;
+      break;
+    case 'releases':
+      input = <ReleasesField value={value} onChange={onChange} />;
       break;
     default:
       input = <input id={id} type="text" maxLength={f.max} value={value || ''} onChange={(e) => onChange(e.target.value)} />;

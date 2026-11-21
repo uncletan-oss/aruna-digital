@@ -3,7 +3,7 @@
  * sehingga halaman yang dirender di server memakai data yang persis sama
  * dengan yang di-fetch browser saat navigasi.
  */
-import { Service, Project, Post, Job, Setting } from './models.js';
+import { Service, Project, Post, Job, Setting, Product, Member, Faq } from './models.js';
 
 const SETTING_FIELDS =
   'heroTitle heroLead email careersEmail phone whatsapp hours street locality region postalCode linkedin instagram github announcement';
@@ -25,13 +25,26 @@ export const content = {
   },
 
   async home() {
-    const [services, projects, posts, jobs] = await Promise.all([
+    const [services, projects, posts, jobs, products, members] = await Promise.all([
       lean(Service.find(PUBLIC).sort({ order: 1 }).select('slug title summary image imageAlt').limit(6)),
       lean(Project.find(PUBLIC).sort({ featured: -1, order: 1, year: -1 }).select(LIST_PROJECT).limit(3)),
       lean(Post.find({ ...PUBLIC, publishedAt: { $lte: new Date() } }).sort({ publishedAt: -1 }).select(LIST_POST).limit(3)),
       Job.countDocuments(PUBLIC),
+      lean(Product.find(PUBLIC).sort({ order: 1 }).select('slug name tagline status accent image imageAlt releases').limit(3)),
+      Member.countDocuments(PUBLIC),
     ]);
-    return { services, projects, posts, openJobs: jobs };
+    const [projectCount, releaseAgg] = await Promise.all([
+      Project.countDocuments(PUBLIC),
+      Product.aggregate([{ $match: PUBLIC }, { $project: { n: { $size: { $ifNull: ['$releases', []] } } } }, { $group: { _id: null, n: { $sum: '$n' } } }]),
+    ]);
+    return {
+      services,
+      projects,
+      posts,
+      openJobs: jobs,
+      products: products.map((p) => ({ ...p, latest: p.releases?.[0] || null, releases: undefined })),
+      stats: { projects: projectCount, releases: releaseAgg[0]?.n || 0, members },
+    };
   },
 
   async services() {
@@ -91,6 +104,29 @@ export const content = {
     return { post, related };
   },
 
+  async products() {
+    return lean(
+      Product.find(PUBLIC).sort({ order: 1 }).select('slug name tagline category status summary image imageAlt accent releases')
+    ).then((xs) => xs.map((p) => ({ ...p, latest: p.releases?.[0] || null, releaseCount: p.releases?.length || 0, releases: undefined })));
+  },
+
+  async product({ slug }) {
+    const product = await lean(Product.findOne({ ...PUBLIC, slug }));
+    if (!product) return null;
+    const others = await lean(Product.find({ ...PUBLIC, slug: { $ne: slug } }).sort({ order: 1 }).select('slug name tagline accent image imageAlt'));
+    return { product, others };
+  },
+
+  async team() {
+    const members = await lean(Member.find(PUBLIC).sort({ leadership: -1, order: 1, name: 1 }).select('-__v -createdAt -updatedAt'));
+    const departments = [...new Set(members.map((m) => m.department).filter(Boolean))];
+    return { members, departments };
+  },
+
+  async faqs() {
+    return lean(Faq.find(PUBLIC).sort({ category: 1, order: 1 }).select('question answer category'));
+  },
+
   async jobs() {
     return lean(Job.find(PUBLIC).sort({ createdAt: -1 }).select('slug title department location employmentType remote summary'));
   },
@@ -110,6 +146,10 @@ const table = [
   ['/api/projects/:slug', content.project],
   ['/api/posts', content.posts],
   ['/api/posts/:slug', content.post],
+  ['/api/products', content.products],
+  ['/api/products/:slug', content.product],
+  ['/api/team', content.team],
+  ['/api/faqs', content.faqs],
   ['/api/jobs', content.jobs],
   ['/api/jobs/:slug', content.job],
 ].map(([pattern, fn]) => {
