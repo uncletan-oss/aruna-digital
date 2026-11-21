@@ -51,7 +51,10 @@ async function createServer() {
 
   app.use(
     helmet({
-      contentSecurityPolicy: {
+      // CSP hanya di production: Vite dev server butuh inline script untuk hot reload.
+      contentSecurityPolicy: !config.isProd
+        ? false
+        : {
         useDefaults: true,
         directives: {
           'default-src': ["'self'"],
@@ -88,7 +91,15 @@ async function createServer() {
     const { createServer: createVite } = await import('vite');
     vite = await createVite({ root, server: { middlewareMode: true }, appType: 'custom' });
     app.use(vite.middlewares);
-    getTemplate = async (url) => vite.transformIndexHtml(url, await fs.readFile(path.join(root, 'index.html'), 'utf-8'));
+    // Dev: muat CSS lebih awal agar tidak ada kilasan halaman tanpa style sebelum JS jalan.
+    getTemplate = async (url) =>
+      vite.transformIndexHtml(
+        url,
+        (await fs.readFile(path.join(root, 'index.html'), 'utf-8')).replace(
+          '<!--app-head-->',
+          '<link rel="stylesheet" href="/src/styles/global.css" />\n    <!--app-head-->'
+        )
+      );
     getRenderer = () => vite.ssrLoadModule('/src/entry-server.jsx');
   } else {
     const clientDir = path.join(root, 'dist/client');
